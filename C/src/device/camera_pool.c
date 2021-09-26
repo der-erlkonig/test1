@@ -1,13 +1,12 @@
 #include "device/pool.h"
 
-static void update_cameras(pthread_t CaremaPool*);
+static void update_cameras(CaremaPool*);
 
 /**
  * @brief      Creates a camera pool.
  * @param[int]  main_num：The main camera number.
  * @param[int]  backup_num:The backup camera number.
- *
- * @return     { description_of_the_return_value }
+ * @return     CameraPool* Camera pool
  */
 CaremaPool* createCameraPool(int main_num, int backup_num){
     return NULL;
@@ -30,6 +29,6 @@ void stopHeartbeat(CaremaPool* pool){
 
 
 //static methods
-static void update_cameras(pthread_t thread, CaremaPool* pool){
+static void update_cameras(CaremaPool* pool){
 
 }
