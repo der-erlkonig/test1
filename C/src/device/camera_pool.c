@@ -23,8 +23,6 @@ CaremaPool* createCameraPool(int main_num, int backup_num, int max_timeout){
     pool -> backup_num = backup_num;
     pthread_mutex_init(&(pool -> lock), NULL);
     pool -> max_timeout = max_timeout;
-    pool -> heart = 1;
-    update_cameras(pool);
     return pool;
 }
 /**
@@ -32,7 +30,8 @@ CaremaPool* createCameraPool(int main_num, int backup_num, int max_timeout){
  * @param[CaremaPool*]      pool:The camera pool
  */
 void heartbeat(CaremaPool* pool){
-	
+    pool -> heart = 1;
+    update_cameras(pool);
 }
 
 /**
@@ -40,7 +39,7 @@ void heartbeat(CaremaPool* pool){
  * @param[CaremaPool*]      pool:The camera pool
  */
 void stopHeartbeat(CaremaPool* pool){
-
+    pool -> heart = 0;
 }
 
 

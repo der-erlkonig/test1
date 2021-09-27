@@ -1,5 +1,5 @@
 ARCH=x86_64
-VERSION=0.0.1-release
+VERSION=0.0.2
 CC=$(ARCH)-gcc
 INC_FLAGS=-Ionvif -IC/include
 LIB_FLAGS=-fPIC --shared
