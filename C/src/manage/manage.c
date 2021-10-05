@@ -3,14 +3,11 @@
 static Message* parseMessage(char*);
 static char* dumpMessage(Message*);
 
-/**
- * @par Message Format
- *      stanard json format
- */
+
 static Message* parseMessage(char* response){
 	Message* msg = (Message*)malloc(sizeof(Message));
 	cJSON* json_response = cJSON_Parse(response);
-	
+	cJSON_GetObjectItem(json_response, "timestamp");
 	
 }
 

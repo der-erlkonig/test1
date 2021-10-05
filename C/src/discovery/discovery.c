@@ -89,7 +89,7 @@ int detect_device(char** xaddrs){
 					int i;
 					for(i = 0; i < response.wsdd__ProbeMatches -> __sizeProbeMatch; i++){
 						probeMatch = (response.wsdd__ProbeMatches -> ProbeMatch) + i;
-						int j;
+						int j = 0;
 						while((probeMatch->XAddrs)[j] != ' ' && (probeMatch->XAddrs)[j] != '\0'){
 							xaddrs[number + i][j] = (probeMatch -> XAddrs)[j];
 							j++;
