@@ -68,7 +68,7 @@ typedef struct{
     pthread_mutex_t lock;/*!< thread lock */
     int max_timeout;/*!< maximum acceptable times of disconnection */
     int heart;/*!< weather to use heartbeat */
-} CaremaPool;
+} CameraPool;
 /**
  * @}
  */
@@ -81,9 +81,9 @@ typedef struct{
  * @brief      exported methods of camera pool
  * @{
  */
-CaremaPool* createCameraPool(int, int, int);
-void heartbeat(CaremaPool*);
-void stopHeartbeat(CaremaPool*);
+CameraPool* createCameraPool(int, int, int);
+void heartbeat(CameraPool*);
+void stopHeartbeat(CameraPool*);
 /**
  * @}
  */

@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <regex.h>
+#include "cJSON.h"
 #include "soapH.h"
 #include "plugins/wsaapi.h"
 #include "plugins/wsseapi.h"

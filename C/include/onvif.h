@@ -11,3 +11,4 @@
 #include "snap/media.h"
 #include "device/device.h"
 #include "device/camera_pool.h"
+#include "manage/manage.h"

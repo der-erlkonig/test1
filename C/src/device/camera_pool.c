@@ -5,19 +5,19 @@
  * @author     Ji Xiangyu
  * @date       2021.9.26
  */
-#include "device/pool.h"
+#include "device/camera_pool.h"
 
-static void update_cameras(CaremaPool*);
+static void update_cameras(CameraPool*);
 
 /**
  * @brief      Creates a camera pool.
- * @param[int]  main_num：The main camera number.
+ * @param[int]  main_num:The main camera number.
  * @param[int]  backup_num:The backup camera number.
  * @param[int]  max_timeout:The maximum times of disconnection.
  * @return     CameraPool* Camera pool
  */
-CaremaPool* createCameraPool(int main_num, int backup_num, int max_timeout){
-    CameraPool* pool = (CaremaPool*)malloc(sizeof(CaremaPool));
+CameraPool* createCameraPool(int main_num, int backup_num, int max_timeout){
+    CameraPool* pool = (CameraPool*)malloc(sizeof(CameraPool));
     pool -> timestamp = 0;
     pool -> main_num = main_num;
     pool -> backup_num = backup_num;
@@ -29,7 +29,7 @@ CaremaPool* createCameraPool(int main_num, int backup_num, int max_timeout){
  * @brief      start heartbeat request
  * @param[CaremaPool*]      pool:The camera pool
  */
-void heartbeat(CaremaPool* pool){
+void heartbeat(CameraPool* pool){
     pool -> heart = 1;
     update_cameras(pool);
 }
@@ -38,12 +38,12 @@ void heartbeat(CaremaPool* pool){
  * @brief      stop heartbeat request
  * @param[CaremaPool*]      pool:The camera pool
  */
-void stopHeartbeat(CaremaPool* pool){
+void stopHeartbeat(CameraPool* pool){
     pool -> heart = 0;
 }
 
 
 //static methods
-static void update_cameras(CaremaPool* pool){
+static void update_cameras(CameraPool* pool){
 
 }
