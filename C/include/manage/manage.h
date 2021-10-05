@@ -38,4 +38,4 @@ typedef struct{
 	int running_threads;
 }Host;
 
-typedef Host* hosts;
+typedef Host* cluster;
