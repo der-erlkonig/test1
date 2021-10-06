@@ -1,3 +1,10 @@
+/**
+ * @file C/src/manage/manage.c
+ * @brief      implementation of cluster management.
+ * @version    0.0.2
+ * @author     Ji Xiangyu
+ * @date       2021.10.6
+ */
 #include "manage/manage.h"
 
 static Message* parseMessage(char*);
@@ -11,4 +18,6 @@ static Message* parseMessage(char* response){
 	
 }
 
-static char* dumpMessage(Message* msg);
+static char* dumpMessage(Message* msg){
+	
+}

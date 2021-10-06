@@ -18,16 +18,24 @@
  * @brief      camera's state and status
  * @{
  */
+/**
+ * @enum
+ * @brief      camera's catelogy
+ */
 enum{
-    MAIN=0,
-    BACKUP=1,
-    UNUSED=2
+    MAIN=0,/*!< main camera, used at first */
+    BACKUP=1,/*!< backup camera, used when main camera does not work */
+    UNUSED=2/*!< unused camera, usually not assigned to a main camera */
 };
 
+/**
+ * @enum 
+ * @brief      camera's state
+ */
 enum{
-    RUNNING=128,
-    WAITING=129,
-    DISCONNECTED=130
+    RUNNING=128,/*!< running, camera works smoothly */
+    WAITING=129,/*!< waiting, camera is on the air but not used now */
+    DISCONNECTED=130/*!< disconnected, host cannot make sure if the camera keeps alive */
 };
 /**
  * @}
@@ -41,7 +49,6 @@ enum{
  * @typedef Camera
  * @struct Camera
  * @brief      wrapper of physical camera
- * @{
  */
 typedef struct{
     char* xaddr;/*!< camera's media service address */
@@ -49,15 +56,11 @@ typedef struct{
     int state;/*!< camera's state */
     int disconnection;/*!< camera's times of disconnection */
 } Camera;
-/**
- * @}
- */
 
 /**
  * @typedef CameraPool
  * @struct CameraPool
  * @brief  definition of camera pool    
- * @{
  */
 typedef struct{
     uint64_t timestamp;/*!< detection timeout */
@@ -69,9 +72,6 @@ typedef struct{
     int max_timeout;/*!< maximum acceptable times of disconnection */
     int heart;/*!< weather to use heartbeat */
 } CameraPool;
-/**
- * @}
- */
 /**
  * @}
  */
