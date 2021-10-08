@@ -7,20 +7,10 @@
  */
 #include "lib.h"
 
+#define UUID_BELOW -1
+#define UUID_EQUAL 0
+#define UUID_GREATER 1
 #define UUID_LEN_ERROR 2
 #define UUID_FORMAT_ERROR 3
-
-union bit32_t{
-	unsigned int uintbit;
-	int intbit;
-	float floatbit;
-};
-
-union bit64_t{
-	unsigned long ulongbit;
-	long longbit;
-	void* ptrbit;
-	double doublebit;
-};
 
 int uuidcmp(char*, char*);
