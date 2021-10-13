@@ -16,6 +16,7 @@
  * @brief      difinition of exported methods of soap
  * @{
  */
+#define SOAP_TIMEOUT 10/*!< default timeout for soap */
 struct soap* new_soap(int);
 void* soap_alloc(struct soap*, unsigned int);
 void free_soap(struct soap*);

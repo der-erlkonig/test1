@@ -19,6 +19,7 @@
  * @brief      type of cluster
  * @{
  */
+#define STR_MAX 100/*!< unified max length of string */
 /**
  * @enum request category
  * @brief      identifiers of request type
@@ -60,6 +61,10 @@ typedef struct{
 			int cameras;/*!< number of all cameras */
 			PTZ_State* all_cameras;/*!< all cameras */
 		};/*!< all-related */
+        struct{
+            int n;/*!< utility for assignment/load, recommend not to use it directly */
+            PTZ_State* value;/*!< utility for assignment/load, recommend not to use it directly */
+        };
 	};/*!< message body */
 } Message;
 /**
@@ -89,6 +94,36 @@ typedef Host* cluster;
 /**
  * @}
  */
+
+/**
+ * @defgroup   Cluster_Methods
+ * @{
+ */
+
+/**
+ * @defgroup   Cluster_Exported_Methods
+ * @{
+ */
+/**
+ * @}
+ */
+
+/**
+ * @defgroup   Cluster_Static_Methods
+ * @{
+ */
+
+static Message* parseMessage(char*);
+static char* dumpMessage(Message*);
+static void deleteMessage(Message*);
+
+/**
+ * @}
+ */
+/**
+ * @}
+ */
+
 /**
  * @}
  */
