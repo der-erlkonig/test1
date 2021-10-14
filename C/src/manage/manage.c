@@ -38,7 +38,17 @@ static Message* parseMessage(char* response){
 }
 
 static char* dumpMessage(Message* msg){
-	return NULL;
+	char* json = (char*)malloc(STR_MAX * 15);
+	if(msg -> uuid == NULL)
+		return NULL;
+	cJSON* json_msg = cJSON_CreateObject();
+	cJSON* uuid = cJSON_CreateString(msg -> uuid);
+	cJSON_AddItemToObject(json_msg, "timestamp", msg -> uuid);
+	cJSON* reset = cJSON_CreateNumber(msg -> reset);
+	cJSON_AddItemToObject(json_msg, "reset", reset);
+	cJSON* category = cJSON_CreateNumber(msg -> category);
+	cJSON_AddItemToObject(json_msg, "category", msg -> category);
+	
 }
 
 static void deleteMessage(Message* msg){
