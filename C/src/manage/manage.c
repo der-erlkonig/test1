@@ -48,6 +48,9 @@ static char* dumpMessage(Message* msg){
 	cJSON_AddItemToObject(json_msg, "reset", reset);
 	cJSON* category = cJSON_CreateNumber(msg -> category);
 	cJSON_AddItemToObject(json_msg, "category", msg -> category);
+	int num = msg -> n;
+	cJSON* number = cJSON_CreateNumber(num);
+	cJSON_AddItemToObject(json_msg, "number", number);
 	
 }
 
