@@ -76,18 +76,19 @@ typedef struct{
  * @struct Host
  */
 typedef struct{
-	pthread_t heartbeat;/*!< heartbeat thread */
-	int cluster_size;/*!< cluster size */
+	pthread_t send;/*!< sending thread */
+	pthread_t recv;/*!< receiving thread */
+    int cluster_size;/*!< cluster size */
 	int capacity;/*!< maximum of threads which host can be held */
 	int* thread_mapping;/*!< mapping between cameras' addresses and host's thread */
 	int running_threads;/*!< current running thread */
 }Host;
 
 /**
- * @typedef cluster
+ * @typedef Cluster
  * @brief      cluster entity
  */
-typedef Host* cluster;
+typedef Host* Cluster;
 
 
 
@@ -116,7 +117,8 @@ typedef Host* cluster;
 static Message* parseMessage(char*);
 static char* dumpMessage(Message*);
 static void deleteMessage(Message*);
-
+static void send_cycle(Cluster);
+static void recv_cycle(Cluster);
 /**
  * @}
  */

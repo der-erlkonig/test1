@@ -38,20 +38,40 @@ static Message* parseMessage(char* response){
 }
 
 static char* dumpMessage(Message* msg){
-	char* json = (char*)malloc(STR_MAX * 15);
 	if(msg -> uuid == NULL)
 		return NULL;
 	cJSON* json_msg = cJSON_CreateObject();
 	cJSON* uuid = cJSON_CreateString(msg -> uuid);
-	cJSON_AddItemToObject(json_msg, "timestamp", msg -> uuid);
+	cJSON_AddItemToObject(json_msg, "timestamp", uuid);
 	cJSON* reset = cJSON_CreateNumber(msg -> reset);
 	cJSON_AddItemToObject(json_msg, "reset", reset);
 	cJSON* category = cJSON_CreateNumber(msg -> category);
-	cJSON_AddItemToObject(json_msg, "category", msg -> category);
+	cJSON_AddItemToObject(json_msg, "category", category);
 	int num = msg -> n;
 	cJSON* number = cJSON_CreateNumber(num);
 	cJSON_AddItemToObject(json_msg, "number", number);
-	
+	if(num != 0){
+		cJSON* cameras = cJSON_CreateArray();
+		int i;
+		for(i = 0;i < num;i++){
+			cJSON* state = cJSON_CreateObject();
+			cJSON* xaddr = cJSON_CreateString((msg -> value)[i].xaddr);
+			cJSON_AddItemToObject(state, "xaddr", xaddr);
+			cJSON* pan = cJSON_CreateNumber((msg -> value)[i].pan);
+			cJSON_AddItemToObject(state, "pan", pan);
+			cJSON* tilt = cJSON_CreateNumber((msg -> value)[i].tilt);
+			cJSON_AddItemToObject(state, "tilt", tilt);
+			cJSON* zoom = cJSON_CreateNumber((msg -> value)[i].zoom);
+			cJSON_AddItemToObject(state, "zoom", zoom);
+			cJSON* running = cJSON_CreateNumber((msg -> value)[i].running);
+			cJSON_AddItemToObject(state, "running", running);
+			cJSON_AddItemToArray(cameras, state);
+		}
+		cJSON_AddItemToObject(json_msg, "value", cameras);
+	}
+	char* request = cJSON_PrintUnformatted(json_msg);
+	cJSON_Delete(json_msg);
+	return request;
 }
 
 static void deleteMessage(Message* msg){
@@ -68,4 +88,11 @@ static void deleteMessage(Message* msg){
 	free(msg -> uuid);
 	free(msg);
 	msg = NULL;
+}
+
+static void send_cycle(Cluster cluster){
+
+}
+static void recv_cycle(Cluster cluster){
+
 }
