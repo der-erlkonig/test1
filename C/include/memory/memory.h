@@ -40,7 +40,35 @@ void __real_free(void* ptr);
  * @brief      type of memory pool
  * @{
  */
-
+typedef void* Memory_Pool;
+typedef int* Memory_State;
+typedef struct{
+    int start;
+    int end;
+    int length;
+    Block* prev;
+    Block* next;
+}Block;
+typedef Block* Block_Table;
+#define DEFAULT_POOL_SIZE 5e6
+/**
+ * @}
+ */
+/**
+ * @defgroup   Memory_Exported_Methods
+ * @brief      exported methods of memory pool
+ * @{
+ */
+/**
+ * @}
+ */
+/**
+ * @defgroup   Memory_Static_Methods
+ * @brief      static methods of memory pool
+ * @{
+ */
+static void init_pool(int);
+static void collect_pool();
 /**
  * @}
  */
