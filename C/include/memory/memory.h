@@ -36,5 +36,14 @@ void __real_free(void* ptr);
  * @}
  */
 /**
+ * @defgroup   Memory_Type
+ * @brief      type of memory pool
+ * @{
+ */
+
+/**
+ * @}
+ */
+/**
  * @}
  */
