@@ -2,7 +2,7 @@
  * @file C/include/device/pool.h
  * @brief      This file defines camera pool.
  * @version    0.0.2
- * @author     Ji Xiangyu
+ * @author     Ji Xiangyu & Jiao Hongtong
  * @date       2021.9.25
  */
 #include "common.h"
@@ -66,6 +66,7 @@ typedef struct{
     uint64_t timestamp;/*!< detection timeout */
     Camera* cameras;/*!< cameras array */
     int size;/*!< cameras number */
+    int capital;/*!<  current max number of cameras */
     int main_num;/*!< main cameras number */
     int backup_num;/*!< backup cameras number */
     pthread_mutex_t lock;/*!< thread lock */
