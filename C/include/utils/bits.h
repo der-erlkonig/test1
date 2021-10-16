@@ -23,6 +23,7 @@
 #define UUID_GREATER 1 /*!< uuid correct, and uuid1 is greater than uuid2 */
 #define UUID_LEN_ERROR 2 /*!< uuid wrong, caused by incorrect length */
 #define UUID_FORMAT_ERROR 3 /*!< uuid wrong, caused by incorrect format such as wrong or misplaced delimiter, not decimal-compatible number(hexcimal, etc.), and so on*/
+
 /**
  * @}
  */
@@ -33,6 +34,7 @@
  * @{
  */
 int uuidcmp(char*, char*);
+uint64_t hash(char*);
 /**
  * @}
  */

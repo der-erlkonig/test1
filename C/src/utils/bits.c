@@ -47,3 +47,20 @@ int uuidcmp(char* u1, char* u2){
 			continue;
 	return UUID_EQUAL;
 }
+
+/**
+ * @brief      compute hash of given string, range 0 to 2^64-2
+ * @param[char*]      str:The string
+ * @return     hash value, 2^64-1(aka -1) if string is NULL
+ * @retval     uint64_t hash value
+ */
+uint64_t hash(char* str){
+	if(str == NULL)
+		return -1;
+	uint64_t value = 0;
+	int len = strlen(str);
+	int i = 0;
+	for(i = 0;i < len; i++)
+		value = value * 31 + str[i];
+	return value;
+}

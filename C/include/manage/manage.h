@@ -82,7 +82,7 @@ typedef struct{
 	pthread_t recv;/*!< receiving thread */
     int cluster_size;/*!< cluster size */
 	int capacity;/*!< maximum of threads which host can be held */
-	int* thread_mapping;/*!< mapping between cameras' addresses and host's thread */
+	uint64_t* thread_mapping;/*!< mapping between cameras' addresses and host's thread */
 	int running_threads;/*!< current running thread */
 } Host;
 
