@@ -7,6 +7,12 @@
  */
 #include "manage/manage.h"
 
+static Message* parseMessage(char*);
+static char* dumpMessage(Message*);
+static void deleteMessage(Message*);
+static void send_cycle(Cluster);
+static void recv_cycle(Cluster);
+
 static Message* parseMessage(char* response){
 	Message* msg = (Message*)malloc(sizeof(Message));
 	cJSON* json_response = cJSON_Parse(response);

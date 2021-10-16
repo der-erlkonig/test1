@@ -5,6 +5,7 @@
  * @date       2021.9.11
  * @version    0.0.1-dev
  */
+#pragma once
 #include <stdio.h>
 #include <string.h>
 #include <time.h>

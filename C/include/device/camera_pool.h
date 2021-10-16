@@ -1,10 +1,11 @@
 /**
- * @file C/include/device/pool.h
+ * @file C/include/device/camera_pool.h
  * @brief      This file defines camera pool.
  * @version    0.0.2
  * @author     Ji Xiangyu & Jiao Hongtong
  * @date       2021.9.25
  */
+#pragma once
 #include "common.h"
 #include <pthread.h>
 

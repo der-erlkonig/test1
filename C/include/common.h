@@ -5,5 +5,6 @@
  * @version    0.0.1-dev
  * @date       2021.9.13
  */
+#pragma once
 #include "utils/soap.h"
 #include "utils/bits.h"

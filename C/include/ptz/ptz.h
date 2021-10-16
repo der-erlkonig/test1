@@ -5,6 +5,7 @@
  * @author     Ji Xiangyu
  * @date       2021.9.15
  */
+#pragma once
 #include "common.h"
 
 /**

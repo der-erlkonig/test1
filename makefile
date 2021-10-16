@@ -13,7 +13,7 @@ TAG=$(ARCH)-$(VERSION)
 
 .PHONY: all clean manual dist clean-manual clean-obj prepare onvif
 
-all: prepare $(TARGET) onvif
+all: prepare $(TARGET)
 	cp -pr C/include/* build_$(TAG)/C/include
 	-mv *.a build_$(TAG)/C/lib
 	-mv *.so build_$(TAG)/C/lib

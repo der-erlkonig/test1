@@ -5,6 +5,7 @@
  * @author     Ji Xiangyu
  * @date       2021.10.5
  */
+#pragma once
 #include "common.h"
 #include "device/camera_pool.h"
 #include <pthread.h>
@@ -72,8 +73,9 @@ typedef struct{
  */
 
 /**
- * @typedef Host
  * @struct Host
+ * @typedef Host
+ * @brief  host image of current computer
  */
 typedef struct{
 	pthread_t send;/*!< sending thread */
@@ -82,11 +84,11 @@ typedef struct{
 	int capacity;/*!< maximum of threads which host can be held */
 	int* thread_mapping;/*!< mapping between cameras' addresses and host's thread */
 	int running_threads;/*!< current running thread */
-}Host;
+} Host;
 
 /**
  * @typedef Cluster
- * @brief      cluster entity
+ * @brief   cluster entity
  */
 typedef Host* Cluster;
 
@@ -97,30 +99,9 @@ typedef Host* Cluster;
  */
 
 /**
- * @defgroup   Cluster_Methods
- * @{
- */
-
-/**
  * @defgroup   Cluster_Exported_Methods
+ * @brief      exported cluster methods
  * @{
- */
-/**
- * @}
- */
-
-/**
- * @defgroup   Cluster_Static_Methods
- * @{
- */
-
-static Message* parseMessage(char*);
-static char* dumpMessage(Message*);
-static void deleteMessage(Message*);
-static void send_cycle(Cluster);
-static void recv_cycle(Cluster);
-/**
- * @}
  */
 /**
  * @}

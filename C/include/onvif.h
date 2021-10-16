@@ -6,6 +6,7 @@
  * @version    0.0.2
  */
 
+#pragma once
 #include "discovery/discovery.h"
 #include "ptz/ptz.h"
 #include "snap/media.h"

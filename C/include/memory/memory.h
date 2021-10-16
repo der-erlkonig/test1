@@ -5,6 +5,7 @@
  * @author     Ji Xiangyu
  * @date       2021.10.15
  */
+#pragma once
 #include <stdlib.h>
 /**
  * @defgroup   Memory
@@ -40,17 +41,45 @@ void __real_free(void* ptr);
  * @brief      type of memory pool
  * @{
  */
+/**
+ * @typedef Memory_Pool
+ * @brief   pool pointer
+ */
 typedef void* Memory_Pool;
+/**
+ * @typedef Memory_State
+ * @brief   pool state of every byte
+ */
 typedef int* Memory_State;
+/**
+ * @typedef BlockNode
+ * @struct  BlockNode
+ * @brief   pysical node of memory block
+ */
 typedef struct{
-    int start;
-    int end;
-    int length;
-    Block* prev;
-    Block* next;
+    int start;/*!< start address */
+    int end;/*!< end address */
+    int length;/*!< block length */
+} BlockNode;
+
+/**
+ * @typedef Block
+ * @struct  Block
+ * @brief   list item of block node
+ */
+typedef struct{
+    BlockNode* prev;/*!< previous */
+    BlockNode* value;/*!< current */
+    BlockNode* next;/*!< next */
 }Block;
+
+/**
+ * @typedef Block_Table
+ * @brief   list of block
+ */
 typedef Block* Block_Table;
-#define DEFAULT_POOL_SIZE 5e6
+
+#define DEFAULT_POOL_SIZE 5e6/*!< default maximum pool size */
 /**
  * @}
  */
@@ -59,16 +88,6 @@ typedef Block* Block_Table;
  * @brief      exported methods of memory pool
  * @{
  */
-/**
- * @}
- */
-/**
- * @defgroup   Memory_Static_Methods
- * @brief      static methods of memory pool
- * @{
- */
-static void init_pool(int);
-static void collect_pool();
 /**
  * @}
  */
