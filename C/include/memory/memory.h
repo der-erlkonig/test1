@@ -7,6 +7,7 @@
  */
 #pragma once
 #include <stdlib.h>
+#include <string.h>
 /**
  * @defgroup   Memory
  * @brief      memory pool
@@ -42,42 +43,32 @@ void __real_free(void* ptr);
  * @{
  */
 /**
+ * @enum Block_Type
+ * @brief type of block node
+ */
+/**
  * @typedef Memory_Pool
  * @brief   pool pointer
  */
 typedef void* Memory_Pool;
-/**
- * @typedef Memory_State
- * @brief   pool state of every byte
- */
-typedef int* Memory_State;
-/**
- * @typedef BlockNode
- * @struct  BlockNode
- * @brief   pysical node of memory block
- */
-typedef struct{
-    int start;/*!< start address */
-    int end;/*!< end address */
-    int length;/*!< block length */
-} BlockNode;
 
 /**
- * @typedef Block
- * @struct  Block
- * @brief   list item of block node
+ * @typedef Memory_Block
+ * @brief   record memory block
+ * @details We use integer to record which block a byte belongs to.
+ *          
+ *          When it is negetive, this block is reserved, and this 
+ *          byte is the first of this block. The absolute value of 
+ *          this number is what the next block's first address.
+ *          
+ *          When it is positive, this block is free and a requested 
+ *          zero page. This byte is the first byte of this block. 
+ *          Its value represents the block's length.
+ *          
+ *          When it is zero, this byte is in the middle of a certain 
+ *          block. We need to find a certain footer or header.
  */
-typedef struct{
-    BlockNode* prev;/*!< previous */
-    BlockNode* value;/*!< current */
-    BlockNode* next;/*!< next */
-}Block;
-
-/**
- * @typedef Block_Table
- * @brief   list of block
- */
-typedef Block* Block_Table;
+typedef int* Memory_Block;
 
 #define DEFAULT_POOL_SIZE 5e6/*!< default maximum pool size */
 /**
