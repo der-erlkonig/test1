@@ -14,5 +14,4 @@
 #include <netinet/in.h>
 #include <sys/types.h>
 
-
 int getLocalAddress(char**);
