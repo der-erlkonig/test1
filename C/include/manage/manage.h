@@ -26,10 +26,10 @@
  * @brief      identifiers of request type
  */
 enum{
-	DIFF = 0,/*!< difference notification, in which the message only contains the difference bewteen the last message, the most regular type */
+	DIFF = 0,/*!< difference notification mode, in which the message only contains the difference bewteen the last message, the most regular type */
 	RESCOVERY = 1,/*!< rescovery mode, in which the message will contains all camera's state, often used to reply recovery request */
 	REQUEST=2,/*!< request mode, in which the rest of the message is empty(or default value), represented that the host requests recovery */
-    PROBE=3,/*!< probe mode, when one host notifies other host that it is online*/
+    PROBE=3,/*!< probe mode, when one host notifies other hosts that it is online and probe other hosts*/
 };
 
 /**
