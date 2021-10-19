@@ -14,4 +14,32 @@
 #include <netinet/in.h>
 #include <sys/types.h>
 
+/**
+ * @defgroup   Network
+ * @brief      network communication
+ * @{
+ */
+/**
+ * @defgroup   Network_Constant
+ * @brief      constant used by communication
+ * @{
+ */
+#define BROADCAST_ADDR "255.255.255.255"/*!< broadcast address */
+#define BROADCAST_PORT 11111/*!< broadcast port */
+/**
+ * @}
+ */
+/**
+ * @defgroup   Network_Exported_Method
+ * @brief      exported methods of network
+ * @{
+ */
 int getLocalAddress(char**);
+void sendGlobalMessage(char*);
+/**
+ * @}
+ */
+
+/**
+ * @}
+ */
