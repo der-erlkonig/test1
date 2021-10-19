@@ -14,4 +14,4 @@
 #include <sys/types.h>
 
 
-void getLocalAddress(char**);
+int getLocalAddress(char**);
