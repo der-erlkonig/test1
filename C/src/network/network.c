@@ -19,7 +19,7 @@ int getLocalAddress(char** addrs){
         for(ifa = ifaddr; ifa != NULL;ifa = ifa -> ifa_next){
             if(ifa -> ifa_addr->sa_family == AF_INET){
                 strcpy(addrs[num], inet_ntoa(((struct sockaddr_in*)ifa -> ifa_addr) -> sin_addr));
-                i++;
+                num++;
             }
         }
         freeifaddrs(ifaddr);
