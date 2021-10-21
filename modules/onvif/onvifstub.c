@@ -1,0 +1,1 @@
+char* stub __attribute__((used));
