@@ -16,4 +16,4 @@ INSTALL(TARGETS onvif_plugins onvif_plugins_static
 		LIBRARY DESTINATION onvif/lib
 		ARCHIVE DESTINATION onvif/lib)
 
-INSTALL(FILES wsseapi.h wsaapi.h threads.h smdevp.h mecevp.h DESTINATION onvif/plugins/include)
+INSTALL(FILES wsseapi.h wsaapi.h threads.h smdevp.h mecevp.h DESTINATION onvif/include/plugins)
