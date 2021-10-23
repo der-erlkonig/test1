@@ -1,1 +1,0 @@
-char* dummy __attribute__((used));
