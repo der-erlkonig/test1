@@ -4,12 +4,5 @@ ADD_LIBRARY(onvif_network SHARED)
 SET_TARGET_PROPERTIES(onvif_network PROPERTIES VERSION 0.0.2 SOVERSION 0)
 TARGET_SOURCES(onvif_network PRIVATE ${ONVIF_NETWORK})
 
-ADD_LIBRARY(onvif_network_static)
-SET_TARGET_PROPERTIES(onvif_network_static PROPERTIES VERSION 0.0.2 SOVERSION 0)
-SET_TARGET_PROPERTIES(onvif_network_static PROPERTIES OUTPUT_NAME "onvif_network")
-TARGET_SOURCES(onvif_network_static PRIVATE ${ONVIF_NETWORK})
-
-INSTALL(TARGETS onvif_network onvif_network_static
-		EXPORT onvif_network_target
-		LIBRARY DESTINATION onvif/lib
-		ARCHIVE DESTINATION onvif/lib)
+INSTALL(TARGETS onvif_network
+		LIBRARY DESTINATION onvif/lib)
