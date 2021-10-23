@@ -2,12 +2,10 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
 PROJECT(onvif_client VERSION 0.0.2)
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wmissing-prototypes")
 EXECUTE_PROCESS(COMMAND sh ../manual.sh)
-LINK_DIRECTORIES(3rd_party/cJSON/lib)
-INCLUDE_DIRECTORIES(3rd_party/cJSON/include)
+INCLUDE_DIRECTORIES(modules/cJSON)
 INCLUDE_DIRECTORIES(modules/include)
 INCLUDE_DIRECTORIES(modules/onvif)
 
-ADD_SUBDIRECTORY(3rd_party)
 ADD_SUBDIRECTORY(modules)
 
 INSTALL(FILES README.txt version.txt manual.pdf DESTINATION onvif/share)
