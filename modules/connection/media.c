@@ -103,7 +103,7 @@ void getStreamUri(char* xaddrs, char* token, char* username, char* passwd, char*
 
 /**
  * @brief      Gets the snapshot.
- * @param[char*] xaddrs:The media service address
+ * @param[char*] xaddrs:The snapshot address
  * @param[char*] username:The username
  * @param[char*] passwdThe password
  * @param[char*] path:The path to store image
