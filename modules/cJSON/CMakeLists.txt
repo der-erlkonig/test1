@@ -5,5 +5,3 @@ target_sources(cjson PRIVATE ${CJSON})
 
 install(TARGETS cjson
 		LIBRARY DESTINATION onvif/lib)
-install(FILES cJSON.h
-		DESTINATION onvif/include/cJSON)

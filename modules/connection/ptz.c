@@ -16,7 +16,6 @@
  * @param[float] zoom:The zoom
  */
 void absoluteMove(char* xaddrs, char* token, char* username, char* passwd, float pan, float tilt, float zoom){
-	char spaces[] = "http://www.onvif.org/ver10/ptz/PanTiltSpaces/PositionGenericSpace";
 	if(xaddrs == NULL)
 		return;
 	struct soap* soap = new_soap(SOAP_TIMEOUT);
@@ -33,20 +32,12 @@ void absoluteMove(char* xaddrs, char* token, char* username, char* passwd, float
 	request.Position -> Zoom = (struct tt__Vector1D*)soap_alloc(soap, sizeof(struct tt__Vector1D));
 	request.Position -> PanTilt -> x = pan;
 	request.Position -> PanTilt -> y = tilt;
-	request.Position -> PanTilt -> space = (char*)soap_alloc(soap, strlen(spaces) + 1);
-	strcpy(request.Position -> PanTilt -> space, spaces);
 	request.Position -> Zoom -> x = zoom;
-	request.Position -> Zoom -> space = (char*)soap_alloc(soap, strlen(spaces) + 1);
-	strcpy(request.Position -> Zoom -> space, spaces);
 	request.Speed -> PanTilt = (struct tt__Vector2D*)soap_alloc(soap, sizeof(struct tt__Vector2D));
 	request.Speed -> Zoom = (struct tt__Vector1D*)soap_alloc(soap, sizeof(struct tt__Vector1D));
 	request.Speed -> PanTilt -> x = 1;
 	request.Speed -> PanTilt -> y = 1;
-	request.Speed -> PanTilt -> space = (char*)soap_alloc(soap, strlen(spaces) + 1);
-	strcpy(request.Speed -> PanTilt -> space, spaces);
 	request.Speed -> Zoom -> x = 1;
-	request.Speed -> Zoom -> space = (char*)soap_alloc(soap, strlen(spaces) + 1);
-	strcpy(request.Speed -> Zoom -> space, spaces);
 	soap_call___tptz__AbsoluteMove(soap, xaddrs, NULL, &request, &response);
 	free_soap(soap);
 }
