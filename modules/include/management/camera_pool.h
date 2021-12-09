@@ -6,19 +6,9 @@
  * @date       2021.9.25
  */
 #pragma once
-#include "common.h"
+#include "onvif_common.h"
 #include <pthread.h>
 
-/**
- * @defgroup   Camera_Pool
- * @brief      camera pool for camera cluster
- * @{
- */
-/**
- * @defgroup   Camera_Pool_State
- * @brief      camera's state and status
- * @{
- */
 /**
  * @enum
  * @brief      camera's catelogy
@@ -38,14 +28,7 @@ enum{
     WAITING=129,/*!< waiting, camera is on the air but not used now */
     DISCONNECTED=130/*!< disconnected, host cannot make sure if the camera keeps alive */
 };
-/**
- * @}
- */
-/**
- * @defgroup   Camera_Pool_Type
- * @brief      definition of type
- * @{
- */
+
 /**
  * @typedef Camera
  * @struct Camera
@@ -74,21 +57,7 @@ typedef struct{
     int max_timeout;/*!< maximum acceptable times of disconnection */
     int heart;/*!< weather to use heartbeat */
 } CameraPool;
-/**
- * @}
- */
 
-/**
- * @defgroup   Camera_Pool_Exported_Methods
- * @brief      exported methods of camera pool
- * @{
- */
 CameraPool* createCameraPool(int, int, int);
 void heartbeat(CameraPool*);
 void stopHeartbeat(CameraPool*);
-/**
- * @}
- */
-/**
- * @}
- */

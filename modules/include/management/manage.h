@@ -6,20 +6,10 @@
  * @date       2021.10.5
  */
 #pragma once
-#include "common.h"
+#include "onvif_common.h"
 #include "camera_pool.h"
 #include <pthread.h>
 
-/**
- * @defgroup   Cluster
- * @brief      hosts cluster
- * @{
- */
-/**
- * @defgroup   Cluster_type
- * @brief      type of cluster
- * @{
- */
 #define STR_MAX 100/*!< unified max length of string */
 /**
  * @enum request category
@@ -69,9 +59,6 @@ typedef struct{
         };
 	};/*!< message body */
 } Message;
-/**
- * @}
- */
 
 /**
  * @struct Host
@@ -92,22 +79,3 @@ typedef struct{
  * @brief   cluster entity
  */
 typedef Host* Cluster;
-
-
-
-/**
- * @}
- */
-
-/**
- * @defgroup   Cluster_Exported_Methods
- * @brief      exported cluster methods
- * @{
- */
-/**
- * @}
- */
-
-/**
- * @}
- */
