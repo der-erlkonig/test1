@@ -6,42 +6,9 @@
  * @date       2021.9.13
  */
 #pragma once
-#include "common.h"
+#include "onvif_common.h"
 
-/**
- * @defgroup   media
- * @brief onvif media support methods
- * @{
- */
-
-/**
- * @defgroup   media_exported_methods
- * @brief      onvif media exported methods
- * @{
- */
-/**
- * @defgroup   media_exported_methods_media
- * @brief      onvif media exported methods, specific for basic media methods
- * @{
- */
 void getProfile(char*, char*, char*, char*);
-/**
- * @}
- */
-/**
- * @defgroup   media_exported_methods_stream
- * @brief      onvif media exported methods, specific for stream-related methods
- * @{
- */
 void getSnapshotUri(char*, char*, char*, char*, char*);
 void getStreamUri(char*, char*, char*, char*, char*);
 void getSnapshot(char*, char*, char*, char*);
-/**
- * @}
- */
-/**
- * @}
- */
-/**
- * @}
- */
