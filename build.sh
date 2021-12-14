@@ -1,7 +1,6 @@
 #!/usr/bin/bash
 mkdir build
-cd build
-cmake .. "$@"
-make && make install
-cd ..
+cmake -B build "$@"
+cmake --build build
+cmake --install build
 rm -rf build
