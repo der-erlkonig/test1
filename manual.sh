@@ -1,5 +1,4 @@
 #!/usr/bin/bash
-cd ..
 doxygen onvif_C
 cd doc/latex
 make
