@@ -7,25 +7,12 @@
  */
 #include "management/bits.h"
 
-/**
- * @def getuuid(str, arr)
- * @brief      try to read decimal numbers from given string to given array
- * @param[char*(awk string reference or pointer)] str:uuid string
- * @param[int*(awk array pointer whose type is compatible to unsigned integer)] arr:array used to store numbers
- */
 #define getuuid(str, arr) \
 		sscanf(str, "%u-%u-%u-%u-%u-%u-%u-%u-%u-%u", \
 			   arr, arr + 1, arr + 2, arr + 3, \
 			   arr + 4, arr + 5, arr + 6, arr + 7, \
 			   arr + 8, arr + 9)
 
-/**
- * @brief      compare uuid
- * @param[char*]      u1:The first uuid
- * @param[char*]      u2:The second uuid
- * @return     result code, whose meaning can be referred to definition.
- * @retval     int code
- */
 int uuidcmp(char* u1, char* u2){
 	int len1 = strlen(u1);
 	int len2 = strlen(u2);
@@ -48,12 +35,6 @@ int uuidcmp(char* u1, char* u2){
 	return UUID_EQUAL;
 }
 
-/**
- * @brief      compute hash of given string, range 0 to 2^64-2
- * @param[char*]      str:The string
- * @return     hash value, 2^64-1(aka -1) if string is NULL
- * @retval     uint64_t hash value
- */
 uint64_t hash(char* str){
 	if(str == NULL)
 		return -1;

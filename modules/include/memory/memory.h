@@ -9,7 +9,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * @brief      wrap standard malloc method
+ * @param[in]  size The requested size
+ * @return     pointer of allocated memory, NULL if fail.
+ */
 void *__wrap_malloc(size_t size);
+
+/**
+ * @brief      wrap standard free method
+ * @param[void*]      ptr:The pointer that points to memory to be collected
+ */
 void __wrap_free(void* ptr);
 
 /**
@@ -20,10 +30,7 @@ void *__real_malloc(size_t size);
  * @brief      declaration of interposition-needed standard free methods
  */
 void __real_free(void* ptr);
-/**
- * @enum Block_Type
- * @brief type of block node
- */
+
 /**
  * @typedef Memory_Pool
  * @brief   pool pointer

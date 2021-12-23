@@ -7,12 +7,6 @@
  */
 #include "network/network.h"
 
-/**
- * @brief      Gets all local addresses.
- * @param[char**]      addrs:The addresses buffer.
- * @return      number
- * @retval      int number of addresses
- */
 int getLocalAddress(char** addrs){
     struct ifaddrs *ifaddr, *ifa;
     int num = 0;
@@ -28,15 +22,6 @@ int getLocalAddress(char** addrs){
     return num;
 }
 
-/**
- * @brief      Sends a global message via broadcast.
- * @details    This is a wrapper of traditional socket
- *             communication, packaging the burdersome
- *             steps. Subjected to its type, we use UDP
- *             to send and receive, so it is non-blocked
- *             method.
- * @param[char*]      msg:The message
- */
 void sendGlobalMessage(char* msg){
     //init
     int client = socket(AF_INET, SOCK_DGRAM, 0);
@@ -52,12 +37,6 @@ void sendGlobalMessage(char* msg){
     close(client);
 }
 
-/**
- * @brief      Sends an unicast message via TCP, note that it is blocked.
- * @param[char*]      addr:The address
- * @param[int]  port  The port
- * @param[char*]      msg:The message
- */
 void sendUnicastMessage(char* addr, int port, char* msg){
     
     //init
@@ -75,11 +54,6 @@ void sendUnicastMessage(char* addr, int port, char* msg){
     close(client);
 }
 
-/**
- * @brief      receive n lines of messages via TCP
- * @param[char**]      msgs:The messages
- * @param[unsigned int]  n      number of lines
- */
 void recvnUnicastMessage(char** msgs, unsigned int n){
     int i = 0;
     int server = socket(AF_INET, SOCK_STREAM, 0);
@@ -100,11 +74,6 @@ void recvnUnicastMessage(char** msgs, unsigned int n){
     close(server);
 }
 
-/**
- * @brief      receive n lines of messages via UDP
- * @param[char**]      msgs:The messages
- * @param[unsigned int]  n      number of lines
- */
 void recvnGlobalMessage(char** msgs, unsigned int n){
     int i = 0;
     int server = socket(AF_INET, SOCK_DGRAM, 0);

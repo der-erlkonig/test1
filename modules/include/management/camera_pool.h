@@ -58,6 +58,23 @@ typedef struct{
     int heart;/*!< weather to use heartbeat */
 } CameraPool;
 
-CameraPool* createCameraPool(int, int, int);
-void heartbeat(CameraPool*);
+/**
+ * @brief      Creates a camera pool.
+ * @param[in]  main_num    The main camera number.
+ * @param[in]  backup_num  The backup camera number.
+ * @param[in]  max_timeout The maximum times of disconnection.
+ * @return     Camera pool
+ */
+CameraPool* createCameraPool(int main_num, int backup_num, int max_timeout);
+
+/**
+ * @brief      start heartbeat request
+ * @param[in]  pool The camera pool
+ */
+void heartbeat(CameraPool* pool);
+
+/**
+ * @brief      stop heartbeat request
+ * @param[in]  pool The camera pool
+ */
 void stopHeartbeat(CameraPool*);

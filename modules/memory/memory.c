@@ -15,12 +15,7 @@ static pthread_mutex_t lock;
 
 static void init_pool(void);
 static void collect_pool(void);
-/**
- * @brief      wrap standard malloc method
- * @param[size_t]  size:The requested size
- * @return     pointer of allocated memory, NULL if fail.
- * @retval     void* memory
- */
+
 void *__wrap_malloc(size_t size){
     if(pool == NULL)
         init_pool();
@@ -49,10 +44,7 @@ void *__wrap_malloc(size_t size){
     pthread_mutex_unlock(&lock);
 	return ptr;
 }
-/**
- * @brief      wrap standard free method
- * @param[void*]      ptr:The pointer that points to memory to be collected
- */
+
 void __wrap_free(void* ptr){
     int location = ptr - pool;
     //not our pool

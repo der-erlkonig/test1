@@ -6,15 +6,7 @@
  * @date       2021
  */
 #include "connection/ptz.h"
-/**
- * @brief      execute absolute move
- * @param[char*] xaddrs:The media service address
- * @param[char*] username:The username
- * @param[char*] passwd:The password
- * @param[float] pan:The pan
- * @param[float] tilt:The tilt
- * @param[float] zoom:The zoom
- */
+
 void absoluteMove(char* xaddrs, char* token, char* username, char* passwd, float pan, float tilt, float zoom){
 	if(xaddrs == NULL)
 		return;
@@ -42,18 +34,6 @@ void absoluteMove(char* xaddrs, char* token, char* username, char* passwd, float
 	free_soap(soap);
 }
 
-/**
- * @brief      perform continuous move
- * @param[char*] xaddrs:The media service address
- * @param[char*] token:The token
- * @param[char*] username:The username
- * @param[char*] passwd:The password
- * @param[int]   pan:The pan
- * @param[int]   tilt:The tilt
- * @param[int]   zoom:The zoom
- * @param[char*] timeout:The timeout
- * @note       please set one direction at once for correctness
- */
 void continuousMove(char* xaddrs, char* token, char* username, char* passwd, float pan, float tilt, float zoom, char* timeout){
 	if(xaddrs == NULL)
 		return;
@@ -79,13 +59,6 @@ void continuousMove(char* xaddrs, char* token, char* username, char* passwd, flo
 	free_soap(soap);
 }
 
-/**
- * @brief      stop move
- * @param[char*] xaddrs:The media service address
- * @param[char*] token:The token
- * @param[char*] username:The username
- * @param[char*] passwd:The password
- */
 void stop(char* xaddrs, char* token, char* username, char* passwd){
 	if(xaddrs == NULL)
 		return;

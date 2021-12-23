@@ -15,6 +15,22 @@
 #define SOAP_TYPES "tdn:NetworkVideoTransmitter"/*!< IPC types */
 #define MAX_IPC_STORE 255/*!< max numbers of IPC address. */
 
+/**
+ * @brief      Initializes the probe header.
+ * @param[in]  soap The soap environment
+ */
 void init_probe_header(struct soap*);
-void init_probe_type(struct soap*, struct wsdd__ProbeType*);
-int detect_device(char**);
+
+/**
+ * @brief      Initializes the probe type.
+ * @param[in]  soap  The soap
+ * @param[out] probe The probe pointer, which is used to store infomation.
+ */
+void init_probe_type(struct soap* soap, struct wsdd__ProbeType* probe);
+
+/**
+ * @brief      detect IPCs, via multicast
+ * @param[out] xaddrs array of strings that is used to store the address of IPC
+ * @return     number of IPC detected
+ */
+int detect_device(char** xaddrs);

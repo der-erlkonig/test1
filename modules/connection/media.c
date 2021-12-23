@@ -6,13 +6,7 @@
  * @date       2021.9.14
  */
 #include "connection/media.h"
-/**
- * @brief      Gets the profile, default is index 0.
- * @param[char*]      xaddrs:The media service address
- * @param[char*]      username:The username
- * @param[char*]      passwd:The password
- * @param[char*]      profile:string pointer to store profile token
- */
+
 void getProfile(char* xaddrs, char* username, char* passwd, char* profile){
 	if(xaddrs == NULL || profile == NULL)
 		return;
@@ -34,14 +28,6 @@ void getProfile(char* xaddrs, char* username, char* passwd, char* profile){
 	return;
 }
 
-/**
- * @brief      Gets the snapshot uri.
- * @param[char*]      xaddrs:The media service address
- * @param[char*]      token:The media profile token
- * @param[char*]      username:The username
- * @param[char*]      passwd:The passwd
- * @param[char*]      snapshotUri:string pointer to store the snapshot uri
- */
 void getSnapshotUri(char* xaddrs, char* token, char* username, char* passwd, char* snapshotUri){
 	if(xaddrs == NULL || token == NULL)
 		return;
@@ -65,14 +51,6 @@ void getSnapshotUri(char* xaddrs, char* token, char* username, char* passwd, cha
 	}
 }
 
-/**
- * @brief      Gets the stream uri.
- * @param[char*]      xaddrs:The media service address
- * @param[char*]      token      The token
- * @param      username   The username
- * @param      passwd     The passwd
- * @param      streamUri  The stream uri
- */
 void getStreamUri(char* xaddrs, char* token, char* username, char* passwd, char* streamUri){
 	
 	if(xaddrs == NULL || token == NULL)
@@ -101,13 +79,6 @@ void getStreamUri(char* xaddrs, char* token, char* username, char* passwd, char*
 	}
 }
 
-/**
- * @brief      Gets the snapshot.
- * @param[char*] xaddrs:The snapshot address
- * @param[char*] username:The username
- * @param[char*] passwdThe password
- * @param[char*] path:The path to store image
- */
 void getSnapshot(char* xaddrs, char* username, char* passwd, char* path){
 	char* cmd = (char*)malloc(200);
 	memset(cmd, 0, 200);

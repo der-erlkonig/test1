@@ -6,10 +6,7 @@
  * @version    0.0.1-dev
  */
 #include "connection/discovery.h"
-/**
- * @brief      Initializes the probe header.
- * @param[soap*]      soap:The soap environment
- */
+
 void init_probe_header(struct soap* soap){
 	if(soap == NULL)
 		return;
@@ -30,11 +27,6 @@ void init_probe_header(struct soap* soap){
 	strcpy(header -> wsa__Action, SOAP_ACTION);
 }
 
-/**
- * @brief      Initializes the probe type.
- * @param[soap*]      soap:The soap
- * @param[wsdd__ProbeType*]      probe:The probe pointer, which is used to store infomation.
- */
 void init_probe_type(struct soap* soap, struct wsdd__ProbeType* probe){
 	if(soap == NULL || probe == NULL)
 		return;
@@ -54,12 +46,6 @@ void init_probe_type(struct soap* soap, struct wsdd__ProbeType* probe){
 	strcpy(probe -> Types, SOAP_TYPES);
 }
 
-/**
- * @brief      detect IPCs, via multicast
- * @param[char**] xaddrs:array of strings that is used to store the address of IPC
- * @return     media addresses of IPCs
- * @retval     int number of IPC detected
- */
 int detect_device(char** xaddrs){
 	//error code
 	int result;

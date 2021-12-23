@@ -7,6 +7,7 @@
  */
 #pragma once
 #include "onvif_common.h"
+
 /**
  * @typedef device_info
  * @struct device_info
@@ -21,4 +22,12 @@ typedef struct {
 	char *HardwareId;/*!< device hardware ID */
 } device_info;
 
-void get_device_information(char*, device_info*, char*, char*);
+/**
+ * @brief      Gets the device information.
+ * @param[in]  xaddr    The xaddr(media service address)
+ * @param[out] info     The information storage pointer
+ * @param[in]  username username
+ * @param[in]  passwd   passwd
+ * @see        device_info
+ */
+void get_device_information(char* xaddr, device_info* info, char* username, char* passwd);

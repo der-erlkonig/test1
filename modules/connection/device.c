@@ -7,14 +7,6 @@
  */
 #include "connection/device.h"
 
-/**
- * @brief      Gets the device information.
- * @param[char*] xaddr:The xaddr(media service address)
- * @param[device_info*] info:The information storage pointer
- * @param[char*] username:username
- * @param[char*] passwd:passwd
- * @see        device_info
- */
 void get_device_information(char* xaddr, device_info* info, char* username, char* passwd){
 	if(info == NULL || xaddr == NULL)
 		return;
