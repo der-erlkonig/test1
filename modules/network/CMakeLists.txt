@@ -1,8 +1,8 @@
-AUX_SOURCE_DIRECTORY(. ONVIF_NETWORK)
+aux_source_directory(. ONVIF_NETWORK)
 
-ADD_LIBRARY(onvif_network SHARED)
-SET_TARGET_PROPERTIES(onvif_network PROPERTIES VERSION 0.0.2 SOVERSION 0)
-TARGET_SOURCES(onvif_network PRIVATE ${ONVIF_NETWORK})
+add_library(onvif_network SHARED)
+set_target_properties(onvif_network PROPERTIES VERSION 0.0.2 SOVERSION 0)
+target_sources(onvif_network PRIVATE ${ONVIF_NETWORK})
 
-INSTALL(TARGETS onvif_network
+install(TARGETS onvif_network
 		LIBRARY DESTINATION onvif/lib)

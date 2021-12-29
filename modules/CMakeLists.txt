@@ -1,9 +1,9 @@
-ADD_SUBDIRECTORY(cJSON)
-ADD_SUBDIRECTORY(connection)
-ADD_SUBDIRECTORY(management)
-ADD_SUBDIRECTORY(memory)
-ADD_SUBDIRECTORY(network)
-ADD_SUBDIRECTORY(onvif)
+add_subdirectory(cJSON)
+add_subdirectory(connection)
+add_subdirectory(management)
+add_subdirectory(memory)
+add_subdirectory(network)
+add_subdirectory(onvif)
 
-INSTALL(DIRECTORY include/
+install(DIRECTORY include/
 		DESTINATION onvif/include)

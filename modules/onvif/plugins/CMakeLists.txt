@@ -1,11 +1,10 @@
-SET(ONVIF_PLUGINS wsseapi.c wsaapi.c threads.c smdevp.c mecevp.c)
+set(ONVIF_PLUGINS wsseapi.c wsaapi.c threads.c smdevp.c mecevp.c)
 
-ADD_LIBRARY(onvif_plugins SHARED)
-SET_TARGET_PROPERTIES(onvif_plugins PROPERTIES VERSION 0.0.2 SOVERSION 0)
-TARGET_SOURCES(onvif_plugins PRIVATE ${ONVIF_PLUGINS})
-TARGET_LINK_LIBRARIES(onvif_plugins PRIVATE onvif_base)
+add_library(onvif_plugins SHARED)
+set_target_properties(onvif_plugins PROPERTIES VERSION 0.0.2 SOVERSION 0)
+target_sources(onvif_plugins PRIVATE ${ONVIF_PLUGINS})
+target_link_libraries(onvif_plugins PRIVATE onvif_base)
 
-INSTALL(TARGETS onvif_plugins
+install(TARGETS onvif_plugins
 		LIBRARY DESTINATION onvif/lib)
-
-INSTALL(FILES wsseapi.h wsaapi.h threads.h smdevp.h mecevp.h DESTINATION onvif/include/plugins)
+install(FILES wsseapi.h wsaapi.h threads.h smdevp.h mecevp.h DESTINATION onvif/include/plugins)

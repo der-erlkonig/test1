@@ -1,9 +1,9 @@
-AUX_SOURCE_DIRECTORY(. ONVIF_MANAGEMENT)
+aux_source_directory(. ONVIF_MANAGEMENT)
 
-ADD_LIBRARY(onvif_management SHARED)
-SET_TARGET_PROPERTIES(onvif_management PROPERTIES VERSION 0.0.2 SOVERSION 0)
-TARGET_SOURCES(onvif_management PRIVATE ${ONVIF_MANAGEMENT})
-TARGET_LINK_LIBRARIES(onvif_management PRIVATE cjson)
+add_library(onvif_management SHARED)
+set_target_properties(onvif_management PROPERTIES VERSION 0.0.2 SOVERSION 0)
+target_sources(onvif_management PRIVATE ${ONVIF_MANAGEMENT})
+target_link_libraries(onvif_management PRIVATE cjson)
 
-INSTALL(TARGETS onvif_management
+install(TARGETS onvif_management
 		LIBRARY DESTINATION onvif/lib)

@@ -1,8 +1,8 @@
-AUX_SOURCE_DIRECTORY(. MEMORY)
+aux_source_directory(. MEMORY)
 
-ADD_LIBRARY(memory SHARED)
-SET_TARGET_PROPERTIES(memory PROPERTIES VERSION 0.0.2 SOVERSION 0)
-TARGET_SOURCES(memory PRIVATE ${MEMORY})
+add_library(memory SHARED)
+set_target_properties(memory PROPERTIES VERSION 0.0.2 SOVERSION 0)
+target_sources(memory PRIVATE ${MEMORY})
 
-INSTALL(TARGETS memory
+install(TARGETS memory
 		LIBRARY DESTINATION onvif/lib)

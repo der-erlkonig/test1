@@ -1,18 +1,18 @@
-FIND_LIBRARY(SSL ssl REQUIRED)
-FIND_LIBRARY(CRYPTO crypto REQUIRED)
-FIND_LIBRARY(DL dl REQUIRED)
-FIND_LIBRARY(PTHREAD pthread REQUIRED)
+find_library(SSL ssl REQUIRED)
+find_library(CRYPTO crypto REQUIRED)
+find_library(DL dl REQUIRED)
+find_library(PTHREAD pthread REQUIRED)
 
-AUX_SOURCE_DIRECTORY(. ONVIF_BASE)
-ADD_LIBRARY(onvif_base SHARED)
-SET_TARGET_PROPERTIES(onvif_base PROPERTIES VERSION 0.0.2 SOVERSION 0)
-TARGET_SOURCES(onvif_base PRIVATE ${ONVIF_BASE})
-TARGET_LINK_LIBRARIES(onvif_base PRIVATE ${SSL} ${CRYPTO} ${DL} ${PTHREAD} onvif_custom)
+aux_source_directory(. ONVIF_BASE)
+add_library(onvif_base SHARED)
+set_target_properties(onvif_base PROPERTIES VERSION 0.0.2 SOVERSION 0)
+target_sources(onvif_base PRIVATE ${ONVIF_BASE})
+target_link_libraries(onvif_base PRIVATE ${SSL} ${CRYPTO} ${DL} ${PTHREAD} onvif_custom)
 
-ADD_SUBDIRECTORY(custom)
-ADD_SUBDIRECTORY(plugins)
+add_subdirectory(custom)
+add_subdirectory(plugins)
 
-INSTALL(TARGETS onvif_base
+install(TARGETS onvif_base
 		LIBRARY DESTINATION onvif/lib)
-INSTALL(FILES namespace.h soapH.h soapStub.h stdsoap2.h
+install(FILES namespace.h soapH.h soapStub.h stdsoap2.h
 		DESTINATION onvif/include)

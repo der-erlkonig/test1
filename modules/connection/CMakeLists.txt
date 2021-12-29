@@ -1,9 +1,9 @@
-AUX_SOURCE_DIRECTORY(. ONVIF_CONNECTION)
+aux_source_directory(. ONVIF_CONNECTION)
 
-ADD_LIBRARY(onvif_connection SHARED)
-SET_TARGET_PROPERTIES(onvif_connection PROPERTIES VERSION 0.0.2 SOVERSION 0)
-TARGET_SOURCES(onvif_connection PRIVATE ${ONVIF_CONNECTION})
-TARGET_LINK_LIBRARIES(onvif_connection PRIVATE onvif_plugins onvif_custom)
+add_library(onvif_connection SHARED)
+set_target_properties(onvif_connection PROPERTIES VERSION 0.0.2 SOVERSION 0)
+target_sources(onvif_connection PRIVATE ${ONVIF_CONNECTION})
+target_link_libraries(onvif_connection PRIVATE onvif_plugins onvif_custom)
 
-INSTALL(TARGETS onvif_connection
+install(TARGETS onvif_connection
 		LIBRARY DESTINATION onvif/lib)
