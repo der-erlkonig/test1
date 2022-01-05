@@ -7,9 +7,8 @@ aux_source_directory(. ONVIF_BASE)
 add_library(onvif_base SHARED)
 set_target_properties(onvif_base PROPERTIES VERSION 0.0.2 SOVERSION 0)
 target_sources(onvif_base PRIVATE ${ONVIF_BASE})
-target_link_libraries(onvif_base PRIVATE ${SSL} ${CRYPTO} ${DL} ${PTHREAD} onvif_custom)
+target_link_libraries(onvif_base PRIVATE ${SSL} ${CRYPTO} ${DL} ${PTHREAD})
 
-add_subdirectory(custom)
 add_subdirectory(plugins)
 
 install(TARGETS onvif_base

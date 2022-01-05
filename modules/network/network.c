@@ -6,6 +6,18 @@
  * @date       2021.10.19
  */
 #include "network/network.h"
+#include "onvif_lib.h"
+#include <arpa/inet.h>
+#include <ifaddrs.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <sys/types.h>
+
+#define BROADCAST_ADDR "255.255.255.255"/*!< broadcast address */
+#define BROADCAST_PORT 11111/*!< broadcast port */
+#define LISTEN_ADDR "0.0.0.0"/*!< listening address */
+#define LISTEN_PORT 11111/*!< listening port */
+#define MAX_CLIENTS 30/*!< maximum number of clients */
 
 int getLocalAddress(char** addrs){
     struct ifaddrs *ifaddr, *ifa;
