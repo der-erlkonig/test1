@@ -5,5 +5,3 @@ target_sources(onvif_custom PRIVATE ${ONVIF_CUSTOM})
 
 install(TARGETS onvif_custom
 		LIBRARY DESTINATION onvif/lib)
-install(FILES struct_timeval.h
-		DESTINATION onvif/include/custom)
