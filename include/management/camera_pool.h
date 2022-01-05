@@ -1,5 +1,5 @@
 /**
- * @file modules/include/management/camera_pool.h
+ * @file       include/management/camera_pool.h
  * @brief      This file defines camera pool.
  * @version    0.0.2
  * @author     Ji Xiangyu & Jiao Hongtong

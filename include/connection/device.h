@@ -1,5 +1,5 @@
 /**
- * @file modules/include/connection/device.h
+ * @file       include/connection/device.h
  * @brief      methods for basic device information.
  * @version    0.0.1-dev
  * @author     Ji Xiangyu

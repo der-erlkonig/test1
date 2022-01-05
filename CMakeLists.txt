@@ -5,9 +5,11 @@ if(SOAP_TIMEOUT)
 	add_definitions("-DSOAP_TIMEOUT=${SOAP_TIMEOUT}")
 endif()
 execute_process(COMMAND sh manual.sh)
-include_directories(modules/include)
+include_directories(include)
 include_directories(modules/onvif)
 
 add_subdirectory(modules)
 
+install(DIRECTORY include/
+		DESTINATION onvif/include)
 install(FILES README.txt version.txt manual.pdf DESTINATION onvif/share)

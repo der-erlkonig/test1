@@ -1,5 +1,5 @@
 /**
- * @file modules/include/connection/discovery.h
+ * @file       include/connection/discovery.h
  * @brief      definition of remote discovery
  * @author     Ji Xiangyu
  * @date       2021.9.11

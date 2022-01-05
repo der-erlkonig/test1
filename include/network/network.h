@@ -1,5 +1,5 @@
 /**
- * @file modules/include/network/network.h
+ * @file       include/network/network.h
  * @brief      Network communication.
  * @version    0.0.2
  * @author     Ji Xiangyu

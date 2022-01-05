@@ -1,5 +1,5 @@
 /**
- * @file modules/include/memory/memory.h
+ * @file       include/memory/memory.h
  * @brief      customized memory pool, to improve malloc/free with high frequency
  * @version    0.0.2
  * @author     Ji Xiangyu

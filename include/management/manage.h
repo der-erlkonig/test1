@@ -1,5 +1,5 @@
 /**
- * @file modules/include/management/manage.h
+ * @file       include/management/manage.h
  * @brief      host cluster management.
  * @version    0.0.2
  * @author     Ji Xiangyu
@@ -61,8 +61,8 @@ typedef struct{
 } Message;
 
 /**
- * @struct Host
  * @typedef Host
+ * @struct Host
  * @brief  host image of current computer
  */
 typedef struct{

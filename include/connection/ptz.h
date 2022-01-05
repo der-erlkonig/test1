@@ -1,5 +1,5 @@
 /**
- * @file modules/include/connection/ptz.h
+ * @file       include/connection/ptz.h
  * @brief      Basic methods of ptz.
  * @version    0.0.1-dev
  * @author     Ji Xiangyu

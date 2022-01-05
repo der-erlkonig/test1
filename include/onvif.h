@@ -1,5 +1,5 @@
 /**
- * @file modules/include/onvif.h
+ * @file       include/onvif.h
  * @brief      includes all interfaces of this module.
  * @author     Ji Xiangyu
  * @date       2021.9.11

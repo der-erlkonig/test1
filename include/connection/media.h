@@ -1,5 +1,5 @@
 /**
- * @file modules/include/connection/media.h
+ * @file       include/connection/media.h
  * @brief      methods for snap(also include some media unified methods).
  * @version    0.0.1-dev
  * @author     Ji Xiangyu

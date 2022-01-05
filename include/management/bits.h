@@ -1,5 +1,5 @@
 /**
- * @file modules/include/management/bits.h
+ * @file       include/management/bits.h
  * @brief      some useful bit-related methods
  * @version    0.0.2
  * @author     Ji Xiangyu
