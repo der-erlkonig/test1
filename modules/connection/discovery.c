@@ -5,9 +5,21 @@
  * @date       2021.9.11
  * @version    0.0.1-dev
  */
-#include "connection/discovery.h"
+#include "discovery.h"
+#include "onvif_common.h"
 
-void init_probe_header(struct soap* soap){
+#define SOAP_TO "urn:schemas-xmlsoap-org:ws:2005:04:discovery"/*!< SOAP_TO */
+#define SOAP_ACTION "http://schemas.xmlsoap.org/ws/2005/04/discovery/Probe"/*!< SOAP_ACTION */
+#define SOAP_MULTICAST "soap.udp://239.255.255.250:3702"/*!< multicast address */
+#define SOAP_ITEM ""/*!< ITEM */
+#define SOAP_TYPES "tdn:NetworkVideoTransmitter"/*!< IPC types */
+#define MAX_IPC_STORE 255/*!< max numbers of IPC address. */
+
+static void init_probe_header(struct soap*);
+static void init_probe_type(struct soap* soap, struct wsdd__ProbeType* probe);
+
+
+static void init_probe_header(struct soap* soap){
 	if(soap == NULL)
 		return;
 
@@ -27,7 +39,7 @@ void init_probe_header(struct soap* soap){
 	strcpy(header -> wsa__Action, SOAP_ACTION);
 }
 
-void init_probe_type(struct soap* soap, struct wsdd__ProbeType* probe){
+static void init_probe_type(struct soap* soap, struct wsdd__ProbeType* probe){
 	if(soap == NULL || probe == NULL)
 		return;
 

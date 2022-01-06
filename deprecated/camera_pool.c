@@ -5,7 +5,9 @@
  * @author     Ji Xiangyu & Jiao Hongtong
  * @date       2021.9.26
  */
-#include "management/camera_pool.h"
+#include "camera_pool.h"
+#include "onvif_common.h"
+#include <pthread.h>
 
 static void update_cameras(CameraPool*);
 // static void update_cameras_exec(CameraPool*,char**,int);

@@ -6,8 +6,6 @@
  * @date       2021.9.25
  */
 #pragma once
-#include "onvif_common.h"
-#include <pthread.h>
 
 /**
  * @enum

@@ -6,7 +6,7 @@
  * @date       2021.10.6
  */
 #pragma once
-#include "onvif_lib.h"
+#include <stdint.h>
 
 #define UUID_BELOW -1 /*!< uuid correct, and uuid1 is lower than uuid2 */
 #define UUID_EQUAL 0 /*!< uuid correct, and uuid1 is equal to uuid2 */

@@ -5,7 +5,8 @@
  * @date       2021.9.13
  * @version    0.0.1-dev
  */
-#include "connection/device.h"
+#include "device.h"
+#include "onvif_common.h"
 
 void get_device_information(char* xaddr, device_info* info, char* username, char* passwd){
 	if(info == NULL || xaddr == NULL)

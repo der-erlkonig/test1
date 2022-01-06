@@ -6,7 +6,6 @@
  * @date       2021.9.13
  */
 #pragma once
-#include "onvif_common.h"
 
 /**
  * @brief      Gets the profile, default is index 0.

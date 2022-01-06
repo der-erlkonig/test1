@@ -5,10 +5,11 @@
  * @date       2021.9.11
  * @version    0.0.1-dev
  */
-#include "connection/soap.h"
+#include "soap.h"
 #include "namespace.h"
+#include "onvif_lib.h"
 
-struct soap* new_soap(int timeout){
+soap* new_soap(int timeout){
     struct soap* soap = NULL;
     
     soap = soap_new();
@@ -30,7 +31,7 @@ struct soap* new_soap(int timeout){
     return soap;
 }
 
-void* soap_alloc(struct soap* soap, unsigned int n){
+void* soap_alloc(soap* soap, unsigned int n){
     void* p = NULL;
     if(n > 0){
         p = soap_malloc(soap, (size_t)n);
@@ -41,7 +42,7 @@ void* soap_alloc(struct soap* soap, unsigned int n){
     return p;
 }
 
-void free_soap(struct soap* soap){
+void free_soap(soap* soap){
     //free memory allocated by soap_malloc
     soap_destroy(soap);
     //free data
@@ -52,7 +53,7 @@ void free_soap(struct soap* soap){
     soap_free(soap);
 }
 
-int set_auth(struct soap* soap, char* username, char* passwd){
+int set_auth(soap* soap, char* username, char* passwd){
     if(soap == NULL || username == NULL || passwd == NULL)
         return -1;
     return soap_wsse_add_UsernameTokenDigest(soap, NULL, username, passwd);

@@ -9,3 +9,4 @@
 #include "connection/soap.h"
 #include "management/bits.h"
 #include "network/network.h"
+#include "onvif_lib.h"

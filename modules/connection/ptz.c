@@ -5,7 +5,8 @@
  * @author     Changchun
  * @date       2021
  */
-#include "connection/ptz.h"
+#include "ptz.h"
+#include "onvif_common.h"
 
 void absoluteMove(char* xaddrs, char* token, char* username, char* passwd, float pan, float tilt, float zoom){
 	if(xaddrs == NULL)

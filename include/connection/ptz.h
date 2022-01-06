@@ -6,7 +6,6 @@
  * @date       2021.9.15
  */
 #pragma once
-#include "onvif_common.h"
 
 /**
  * @brief     execute absolute move

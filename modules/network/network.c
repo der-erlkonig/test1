@@ -5,7 +5,7 @@
  * @author     Ji Xiangyu
  * @date       2021.10.19
  */
-#include "network/network.h"
+#include "network.h"
 #include "onvif_lib.h"
 #include <arpa/inet.h>
 #include <ifaddrs.h>

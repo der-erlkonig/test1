@@ -5,7 +5,8 @@
  * @author     Ji Xiangyu
  * @date       2021.10.15
  */
-#include "management/bits.h"
+#include "bits.h"
+#include "onvif_lib.h"
 
 #define getuuid(str, arr) \
 		sscanf(str, "%u-%u-%u-%u-%u-%u-%u-%u-%u-%u", \

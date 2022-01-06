@@ -5,7 +5,8 @@
  * @author     Ji Xiangyu
  * @date       2021.9.14
  */
-#include "connection/media.h"
+#include "media.h"
+#include "onvif_common.h"
 
 void getProfile(char* xaddrs, char* username, char* passwd, char* profile){
 	if(xaddrs == NULL || profile == NULL)
