@@ -10,6 +10,7 @@
 #include "soap.h"
 #include "namespace.h"
 #include "soapH.h"
+#include "wsseapi.h"
 
 soap* new_soap(int timeout){
     struct soap* soap = NULL;

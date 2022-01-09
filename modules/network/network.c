@@ -16,6 +16,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #define BROADCAST_ADDR "255.255.255.255"/*!< broadcast address */
 #define BROADCAST_PORT 11111/*!< broadcast port */

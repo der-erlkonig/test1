@@ -10,6 +10,11 @@ target_include_directories(onvif_core PRIVATE ${PROJECT_SOURCE_DIR}/include/onvi
 target_sources(onvif_core PRIVATE ${ONVIF_CORE})
 target_link_libraries(onvif_core PRIVATE ${SSL} ${CRYPTO} ${DL} ${PTHREAD})
 
-install(TARGETS onvif_core
+add_library(onvif_core_static STATIC)
+target_include_directories(onvif_core_static PRIVATE ${PROJECT_SOURCE_DIR}/include/onvif)
+target_sources(onvif_core_static PRIVATE ${ONVIF_CORE})
+set_target_properties(onvif_core_static PROPERTIES OUTPUT_NAME "onvif_core")
+
+install(TARGETS onvif_core onvif_core_static
 		LIBRARY DESTINATION onvif/lib
 		ARCHIVE DESTINATION onvif/lib)

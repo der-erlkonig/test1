@@ -48,7 +48,7 @@ typedef struct Host{
 	int running_threads;/*!< current running thread */
 } Cluster;
 
-static boot = 0;
+static int boot = 0;
 
 static struct Message* parseMessage(char*);
 static char* dumpMessage(struct Message*);

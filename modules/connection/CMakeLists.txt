@@ -9,7 +9,13 @@ target_include_directories(onvif_connection PRIVATE ${PROJECT_SOURCE_DIR}/includ
 target_sources(onvif_connection PRIVATE ${ONVIF_CONNECTION})
 target_link_libraries(onvif_connection PRIVATE onvif_core)
 
-install(TARGETS onvif_connection
+add_library(onvif_connection_static STATIC)
+target_include_directories(onvif_connection_static PRIVATE ${PROJECT_SOURCE_DIR}/include/connection)
+target_include_directories(onvif_connection_static PRIVATE ${PROJECT_SOURCE_DIR}/include/onvif)
+target_sources(onvif_connection_static PRIVATE ${ONVIF_CONNECTION})
+set_target_properties(onvif_connection_static PROPERTIES OUTPUT_NAME "onvif_connection")
+
+install(TARGETS onvif_connection onvif_connection_static
 		LIBRARY DESTINATION onvif/lib
 		ARCHIVE DESTINATION onvif/lib
 		PUBLIC_HEADER DESTINATION onvif/include/connection)
