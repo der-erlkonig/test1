@@ -6,12 +6,15 @@
  * @version    0.0.1-dev
  */
 #include "device.h"
-#include "onvif_common.h"
+#include "soap.h"
+#include "soapH.h"
+#include <string.h>
+#include <stdlib.h>
 
 void get_device_information(char* xaddr, device_info* info, char* username, char* passwd){
 	if(info == NULL || xaddr == NULL)
 		return;
-	struct soap* soap = new_soap(SOAP_TIMEOUT);
+	soap* soap = new_soap(SOAP_TIMEOUT);
 	if(soap == NULL){
 		info -> valid = 0;
 		return;

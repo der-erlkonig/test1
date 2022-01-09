@@ -6,7 +6,11 @@
  * @date       2021.10.19
  */
 #include "network.h"
-#include "onvif_lib.h"
+
+#include <string.h>
+#include <stdlib.h>
+#include "cJSON.h"
+
 #include <arpa/inet.h>
 #include <ifaddrs.h>
 #include <sys/socket.h>

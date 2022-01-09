@@ -6,7 +6,11 @@
  * @version    0.0.1-dev
  */
 #include "discovery.h"
-#include "onvif_common.h"
+#include "soap.h"
+#include <string.h>
+#include <stdlib.h>
+#include "soapH.h"
+#include "wsaapi.h"
 
 #define SOAP_TO "urn:schemas-xmlsoap-org:ws:2005:04:discovery"/*!< SOAP_TO */
 #define SOAP_ACTION "http://schemas.xmlsoap.org/ws/2005/04/discovery/Probe"/*!< SOAP_ACTION */

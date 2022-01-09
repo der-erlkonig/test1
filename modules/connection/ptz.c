@@ -6,7 +6,10 @@
  * @date       2021
  */
 #include "ptz.h"
-#include "onvif_common.h"
+#include "soap.h"
+#include <string.h>
+#include <stdlib.h>
+#include "soapH.h"
 
 void absoluteMove(char* xaddrs, char* token, char* username, char* passwd, float pan, float tilt, float zoom){
 	if(xaddrs == NULL)

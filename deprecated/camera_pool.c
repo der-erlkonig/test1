@@ -6,7 +6,6 @@
  * @date       2021.9.26
  */
 #include "camera_pool.h"
-#include "onvif_common.h"
 #include <pthread.h>
 
 static void update_cameras(CameraPool*);

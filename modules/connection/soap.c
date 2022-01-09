@@ -5,9 +5,11 @@
  * @date       2021.9.11
  * @version    0.0.1-dev
  */
+
+
 #include "soap.h"
 #include "namespace.h"
-#include "onvif_lib.h"
+#include "soapH.h"
 
 soap* new_soap(int timeout){
     struct soap* soap = NULL;
@@ -56,5 +58,6 @@ void free_soap(soap* soap){
 int set_auth(soap* soap, char* username, char* passwd){
     if(soap == NULL || username == NULL || passwd == NULL)
         return -1;
+    //TODO:implicit declaration
     return soap_wsse_add_UsernameTokenDigest(soap, NULL, username, passwd);
 }

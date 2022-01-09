@@ -11,5 +11,7 @@
 #include "connection/ptz.h"
 #include "connection/media.h"
 #include "connection/device.h"
-#include "management/camera_pool.h"
+// please uncomment this include command, compile and link source files in the deprecated folder with your library if needed.
+// But some dependencies has been destroyed, so you need to repair them before installing.
+// #include "management/camera_pool.h"
 #include "management/manage.h"

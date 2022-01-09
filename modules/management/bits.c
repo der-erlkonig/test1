@@ -6,7 +6,8 @@
  * @date       2021.10.15
  */
 #include "bits.h"
-#include "onvif_lib.h"
+#include <stdio.h>
+#include <string.h>
 
 #define getuuid(str, arr) \
 		sscanf(str, "%u-%u-%u-%u-%u-%u-%u-%u-%u-%u", \

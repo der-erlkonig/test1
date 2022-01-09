@@ -6,7 +6,12 @@
  * @date       2021.10.6
  */
 #include "manage.h"
-#include "onvif_common.h"
+#include "soap.h"
+#include "bits.h"
+#include "network.h"
+#include "cJSON.h"
+#include <string.h>
+#include <stdlib.h>
 #include <pthread.h>
 
 #define STR_MAX 100/*!< unified max length of string */
@@ -34,23 +39,25 @@ struct Message{
 	char* uuid;
 };
 
-struct Host{
+typedef struct Host{
 	pthread_t send;/*!< sending thread */
 	pthread_t recv;/*!< receiving thread */
     int cluster_size;/*!< cluster size */
 	int capacity;/*!< maximum of threads which host can be held */
 	uint64_t* thread_mapping;/*!< mapping between cameras' addresses and host's thread */
 	int running_threads;/*!< current running thread */
-};
+} Cluster;
 
-static Message* parseMessage(char*);
-static char* dumpMessage(Message*);
-static void deleteMessage(Message*);
-static void send_cycle(Cluster);
-static void recv_cycle(Cluster);
+static boot = 0;
+
+static struct Message* parseMessage(char*);
+static char* dumpMessage(struct Message*);
+static void deleteMessage(struct Message*);
+static void send_cycle(Cluster*);
+static void recv_cycle(Cluster*);
 
 //TODO:need to be rewrite
-static Message* parseMessage(char* response){
+static struct Message* parseMessage(char* response){
 	// Message* msg = (Message*)malloc(sizeof(Message));
 	// cJSON* json_response = cJSON_Parse(response);
 	// msg -> uuid = (char*)malloc(STR_MAX);
@@ -81,7 +88,7 @@ static Message* parseMessage(char* response){
 	return NULL;
 }
 
-static char* dumpMessage(Message* msg){
+static char* dumpMessage(struct Message* msg){
 	// if(msg -> uuid == NULL)
 	// 	return NULL;
 	// cJSON* json_msg = cJSON_CreateObject();
@@ -119,7 +126,7 @@ static char* dumpMessage(Message* msg){
 	return NULL;
 }
 
-static void deleteMessage(Message* msg){
+static void deleteMessage(struct Message* msg){
 	// if(msg == NULL)
 	// 	return;
 	// if(msg -> value != NULL){
@@ -135,9 +142,13 @@ static void deleteMessage(Message* msg){
 	// msg = NULL;
 }
 
-static void send_cycle(Cluster cluster){
+static void send_cycle(Cluster* cluster){
 
 }
-static void recv_cycle(Cluster cluster){
+static void recv_cycle(Cluster* cluster){
 
+}
+
+void set_boot(){
+	boot = 1;
 }

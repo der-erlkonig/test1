@@ -6,7 +6,10 @@
  * @date       2021.9.14
  */
 #include "media.h"
-#include "onvif_common.h"
+#include "soap.h"
+#include <string.h>
+#include <stdlib.h>
+#include "soapH.h"
 
 void getProfile(char* xaddrs, char* username, char* passwd, char* profile){
 	if(xaddrs == NULL || profile == NULL)
