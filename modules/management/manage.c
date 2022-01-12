@@ -21,10 +21,18 @@
  * @brief      identifiers of request type
  */
 enum{
-	DIFF = 0,/*!< difference notification mode, in which the message only contains the difference bewteen the last message, the most regular type */
-	RESCOVERY = 1,/*!< rescovery mode, in which the message will contains all camera's state, often used to reply recovery request */
-	REQUEST=2,/*!< request mode, in which the rest of the message is empty(or default value), represented that the host requests recovery */
-    PROBE=3,/*!< probe mode, when one host notifies other hosts that it is online and probe other hosts*/
+	HEART=0,
+	ALIVE,
+	SYNC,
+	RECOVER,
+	FAIL,
+	MEET,
+	PING,
+	PONG,
+	MOVE,
+	DECLARE,
+	REJECT,
+	STOP
 };
 
 struct PTZ_State{
@@ -37,6 +45,53 @@ struct PTZ_State{
 
 struct Message{
 	char* uuid;
+	int type;
+	union{
+		struct{
+			char* begin;
+			char* end;
+			struct Message** messages;
+		} sync;
+		struct{
+			char* begin;
+		} recover;
+		struct{
+			int commit;
+			char* ip;
+			int port;
+		} fail;
+		struct{
+			void* request;
+		} move;
+		struct{
+			int commit;
+			int switcher;
+			union{
+				struct{
+					int slot;
+				} light;
+				struct{
+					int num;
+					int* slots;
+				} full;
+			} mapping;
+		} declare;
+		struct{
+			int switcher;
+			union{
+				struct{
+					int slot;
+				} light;
+				struct{
+					int num;
+					int* slots;
+				} full;
+			} mapping;
+		} reject;
+		struct{
+			void* dummy;
+		} exception;
+	} data;
 };
 
 typedef struct Host{
@@ -56,36 +111,89 @@ static void deleteMessage(struct Message*);
 static void send_cycle(Cluster*);
 static void recv_cycle(Cluster*);
 
-//TODO:need to be rewrite
 static struct Message* parseMessage(char* response){
-	// Message* msg = (Message*)malloc(sizeof(Message));
-	// cJSON* json_response = cJSON_Parse(response);
-	// msg -> uuid = (char*)malloc(STR_MAX);
-	// strcpy(msg -> uuid, cJSON_GetObjectItem(json_response, "timestamp") -> valuestring);
-	// msg -> reset = cJSON_GetObjectItem(json_response, "reset") -> valueint;
-	// msg -> category = cJSON_GetObjectItem(json_response, "category") -> valueint;
-	// int number = cJSON_GetObjectItem(json_response, "number") -> valueint;
-	// msg -> n = number;
-	// if(number == 0){
-	// 	msg -> value = NULL;
-	// 	return msg;
-	// }
-	// cJSON* cameras = cJSON_GetObjectItem(json_response, "value");
-	// PTZ_State* values = (PTZ_State*)malloc(number * sizeof(PTZ_State));
-	// msg -> value = values;
-	// int i = 0;
-	// for(;i < number;i++){
-	// 	cJSON* state = cJSON_GetArrayItem(cameras, i);
-	// 	values[i].xaddr = (char*)malloc(STR_MAX);
-	// 	strcpy(values[i].xaddr, cJSON_GetObjectItem(state, "xaddr") -> valuestring);
-	// 	values[i].pan = (float)cJSON_GetObjectItem(state, "pan") -> valuedouble;
-	// 	values[i].tilt = (float)cJSON_GetObjectItem(state, "tile") -> valuedouble;
-	// 	values[i].zoom = (float)cJSON_GetObjectItem(state, "zoom") -> valuedouble;
-	// 	values[i].running = cJSON_GetObjectItem(state, "running") -> valueint;
-	// }
-	// cJSON_Delete(json_response);
-	// return msg;
-	return NULL;
+	struct Message* msg = (struct Message*)malloc(sizeof(struct Message));
+	cJSON* json_response = cJSON_Parse(response);
+	msg -> uuid = (char*)malloc(STR_MAX);
+	strcpy(msg -> uuid, cJSON_GetObjectItem(json_response, "uuid") -> valuestring);
+	int type = cJSON_GetObjectItem(json_response, "type") -> valueint;
+	msg -> type = type;
+	cJSON* data = cJSON_GetObjectItem(json_response, "data");
+	switch(type){
+		//TODO: switcher
+		case SYNC:
+			(msg -> data).sync.begin = (char*)malloc(STR_MAX);
+			(msg -> data).sync.end = (char*)malloc(STR_MAX);
+			strcpy((msg -> data).sync.begin, cJSON_GetObjectItem(data, "start") -> valuestring);
+			strcpy((msg -> data).sync.end, cJSON_GetObjectItem(data, "end") -> valuestring);
+			cJSON* messages = cJSON_GetObjectItem(data, "messages");
+			int check = uuidcmp((msg -> data).sync.begin, (msg -> data).sync.end);
+			if(check != UUID_BELOW && check != UUID_EQUAL){
+				(msg -> data).sync.messages = NULL;
+				break;
+			}
+			int num = cJSON_GetArraySize(messages);
+			(msg -> data).sync.messages = (struct Message**)malloc(num * sizeof(struct Message*));
+			int i = 0;
+			char* message = (char*)malloc(STR_MAX);
+			for(;i < num;i++){
+				strcpy(message, cJSON_GetArrayItem(messages, i) -> valuestring);
+				(msg -> data).sync.messages[i] = parseMessage(message);
+			}
+			break;
+		case RECOVER:
+			(msg -> data).recover.begin = (char*)malloc(STR_MAX);
+			strcpy((msg -> data).recover.begin, cJSON_GetObjectItem(data, "begin") -> valuestring);
+			break;
+		case FAIL:
+			(msg -> data).fail.commit = cJSON_GetObjectItem(data, "commit") -> valueint;
+			(msg -> data).fail.ip = (char*)malloc(STR_MAX);
+			strcpy((msg -> data).fail.ip, cJSON_GetObjectItem(data, "ip") -> valuestring);
+			(msg -> data).fail.port = cJSON_GetObjectItem(data, "port") -> valueint;
+			break;
+		case MOVE:
+			(msg -> data).move.request = malloc(STR_MAX * STR_MAX);
+			strcpy((msg -> data).move.request, cJSON_GetObjectItem(data, "request") -> valuestring);
+			break;
+		case DECLARE:
+			(msg -> data).declare.commit = cJSON_GetObjectItem(data, "commit") -> valueint;
+			(msg -> data).declare.switcher = cJSON_GetObjectItem(data, "switcher") -> valueint;
+			cJSON* mapping_declare = cJSON_GetObjectItem(data, "mapping");
+			if((msg -> data).declare.switcher){
+				//full mode
+				(msg -> data).declare.mapping.full.num = cJSON_GetObjectItem(mapping_declare, "num") -> valueint;
+				int num = (msg -> data).declare.mapping.full.num;
+				cJSON* slots = cJSON_GetObjectItem(mapping_declare, "slots");
+				(msg -> data).declare.mapping.full.slots = (int*)malloc(num * sizeof(int));
+				int i = 0;
+				for(;i < num;i++)
+					(msg -> data).declare.mapping.full.slots[i] = cJSON_GetArrayItem(slots, i) -> valueint;
+			}else
+				//light mode
+				(msg -> data).declare.mapping.light.slot = cJSON_GetObjectItem(mapping_declare, "slot") -> valueint;
+			break;
+		case REJECT:
+			(msg -> data).reject.switcher = cJSON_GetObjectItem(data, "switcher") -> valueint;
+			cJSON* mapping_reject = cJSON_GetObjectItem(data, "mapping");
+			if((msg -> data).reject.switcher){
+				//full mode
+				(msg -> data).reject.mapping.full.num = cJSON_GetObjectItem(mapping_reject, "num") -> valueint;
+				int num = (msg -> data).reject.mapping.full.num;
+				cJSON* slots = cJSON_GetObjectItem(mapping_reject, "slots");
+				(msg -> data).reject.mapping.full.slots = (int*)malloc(num * sizeof(int));
+				int i = 0;
+				for(;i < num;i++)
+					(msg -> data).reject.mapping.full.slots[i] = cJSON_GetArrayItem(slots, i) -> valueint;
+			}else
+				//light mode
+				(msg -> data).reject.mapping.light.slot = cJSON_GetObjectItem(mapping_reject, "slot") -> valueint;
+			break;
+		default:
+			(msg -> data).exception.dummy = NULL;
+			break;
+	}
+	cJSON_Delete(json_response);
+	return msg;
 }
 
 static char* dumpMessage(struct Message* msg){
