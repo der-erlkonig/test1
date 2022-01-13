@@ -7,4 +7,4 @@
  */
 #pragma once
 
-void set_boot();
+void set_boot(void);

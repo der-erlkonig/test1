@@ -61,7 +61,7 @@ struct Message{
 			int port;
 		} fail;
 		struct{
-			void* request;
+			char* request;
 		} move;
 		struct{
 			int commit;
@@ -110,6 +110,7 @@ static char* dumpMessage(struct Message*);
 static void deleteMessage(struct Message*);
 static void send_cycle(Cluster*);
 static void recv_cycle(Cluster*);
+static void dummy(void);
 
 static struct Message* parseMessage(char* response){
 	struct Message* msg = (struct Message*)malloc(sizeof(struct Message));
@@ -124,7 +125,7 @@ static struct Message* parseMessage(char* response){
 		case SYNC:
 			(msg -> data).sync.begin = (char*)malloc(STR_MAX);
 			(msg -> data).sync.end = (char*)malloc(STR_MAX);
-			strcpy((msg -> data).sync.begin, cJSON_GetObjectItem(data, "start") -> valuestring);
+			strcpy((msg -> data).sync.begin, cJSON_GetObjectItem(data, "begin") -> valuestring);
 			strcpy((msg -> data).sync.end, cJSON_GetObjectItem(data, "end") -> valuestring);
 			cJSON* messages = cJSON_GetObjectItem(data, "messages");
 			int check = uuidcmp((msg -> data).sync.begin, (msg -> data).sync.end);
@@ -152,7 +153,7 @@ static struct Message* parseMessage(char* response){
 			(msg -> data).fail.port = cJSON_GetObjectItem(data, "port") -> valueint;
 			break;
 		case MOVE:
-			(msg -> data).move.request = malloc(STR_MAX * STR_MAX);
+			(msg -> data).move.request = (char*)malloc(STR_MAX * STR_MAX);
 			strcpy((msg -> data).move.request, cJSON_GetObjectItem(data, "request") -> valuestring);
 			break;
 		case DECLARE:
@@ -197,57 +198,153 @@ static struct Message* parseMessage(char* response){
 }
 
 static char* dumpMessage(struct Message* msg){
-	// if(msg -> uuid == NULL)
-	// 	return NULL;
-	// cJSON* json_msg = cJSON_CreateObject();
-	// cJSON* uuid = cJSON_CreateString(msg -> uuid);
-	// cJSON_AddItemToObject(json_msg, "timestamp", uuid);
-	// cJSON* reset = cJSON_CreateNumber(msg -> reset);
-	// cJSON_AddItemToObject(json_msg, "reset", reset);
-	// cJSON* category = cJSON_CreateNumber(msg -> category);
-	// cJSON_AddItemToObject(json_msg, "category", category);
-	// int num = msg -> n;
-	// cJSON* number = cJSON_CreateNumber(num);
-	// cJSON_AddItemToObject(json_msg, "number", number);
-	// if(num != 0){
-	// 	cJSON* cameras = cJSON_CreateArray();
-	// 	int i;
-	// 	for(i = 0;i < num;i++){
-	// 		cJSON* state = cJSON_CreateObject();
-	// 		cJSON* xaddr = cJSON_CreateString((msg -> value)[i].xaddr);
-	// 		cJSON_AddItemToObject(state, "xaddr", xaddr);
-	// 		cJSON* pan = cJSON_CreateNumber((msg -> value)[i].pan);
-	// 		cJSON_AddItemToObject(state, "pan", pan);
-	// 		cJSON* tilt = cJSON_CreateNumber((msg -> value)[i].tilt);
-	// 		cJSON_AddItemToObject(state, "tilt", tilt);
-	// 		cJSON* zoom = cJSON_CreateNumber((msg -> value)[i].zoom);
-	// 		cJSON_AddItemToObject(state, "zoom", zoom);
-	// 		cJSON* running = cJSON_CreateNumber((msg -> value)[i].running);
-	// 		cJSON_AddItemToObject(state, "running", running);
-	// 		cJSON_AddItemToArray(cameras, state);
-	// 	}
-	// 	cJSON_AddItemToObject(json_msg, "value", cameras);
-	// }
-	// char* request = cJSON_PrintUnformatted(json_msg);
-	// cJSON_Delete(json_msg);
-	// return request;
-	return NULL;
+	if(msg == NULL || msg -> uuid == NULL)
+		return NULL;
+	cJSON* json_msg = cJSON_CreateObject();
+	cJSON* uuid = cJSON_CreateString(msg -> uuid);
+	cJSON* type = cJSON_CreateNumber(msg -> type);
+	cJSON* data = cJSON_CreateObject();
+	switch(msg -> type){
+		case SYNC:
+			dummy();
+			cJSON* begin_sync = cJSON_CreateString((msg -> data).sync.begin);
+			cJSON* end_sync = cJSON_CreateString((msg -> data).sync.end);
+			cJSON* messages = cJSON_CreateArray();
+			int len = sizeof((msg -> data).sync.messages)/sizeof(struct Message*);
+			int i = 0;
+			for(;i < len;i++){
+				char* message = dumpMessage((msg -> data).sync.messages[i]);
+				cJSON* json_message = cJSON_CreateString(message);
+				cJSON_AddItemToArray(messages, json_message);
+				free(message);
+			}
+			cJSON_AddItemToObject(data, "begin", begin_sync);
+			cJSON_AddItemToObject(data, "end", end_sync);
+			cJSON_AddItemToObject(data, "messages", messages);
+			break;
+		case RECOVER:
+			dummy();
+			cJSON* begin_recover = cJSON_CreateString((msg -> data).recover.begin);
+			cJSON_AddItemToObject(data, "begin", begin_recover);
+			break;
+		case FAIL:
+			dummy();
+			cJSON* commit_fail = cJSON_CreateNumber((msg -> data).fail.commit);
+			cJSON* ip = cJSON_CreateString((msg -> data).fail.ip);
+			cJSON* port = cJSON_CreateNumber((msg -> data).fail.port);
+			cJSON_AddItemToObject(data, "commit", commit_fail);
+			cJSON_AddItemToObject(data, "ip", ip);
+			cJSON_AddItemToObject(data, "port", port);
+			break;
+		case MOVE:
+			dummy();
+			cJSON* request = cJSON_CreateString((msg -> data).move.request);
+			cJSON_AddItemToObject(data, "request", request);
+			break;
+		case DECLARE:
+			dummy();
+			cJSON* commit_declare = cJSON_CreateNumber((msg -> data).declare.commit);
+			cJSON* switcher_declare = cJSON_CreateNumber((msg -> data).declare.switcher);
+			cJSON* mapping = cJSON_CreateObject();
+			if((msg -> data).declare.switcher){
+				//full mode
+				cJSON* num = cJSON_CreateNumber((msg -> data).declare.mapping.full.num);
+				cJSON* slots = cJSON_CreateArray();
+				int i = 0;
+				int len = (msg -> data).declare.mapping.full.num;
+				for(;i < len;i++){
+					cJSON* slot = cJSON_CreateNumber((msg -> data).declare.mapping.full.slots[i]);
+					cJSON_AddItemToArray(slots, slot);
+				}
+				cJSON_AddItemToObject(mapping, "num", num);
+				cJSON_AddItemToObject(mapping, "slots", slots);
+			}else{
+				//light mode
+				cJSON* slot = cJSON_CreateNumber((msg -> data).declare.mapping.light.slot);
+				cJSON_AddItemToObject(mapping, "slot", slot);
+			}
+			cJSON_AddItemToObject(data, "commit", commit_declare);
+			cJSON_AddItemToObject(data, "switcher", switcher_declare);
+			cJSON_AddItemToObject(data, "mapping", mapping);
+			break;
+		case REJECT:
+			dummy();
+			cJSON* switcher_reject = cJSON_CreateNumber((msg -> data).reject.switcher);
+			cJSON* mapping_reject = cJSON_CreateObject();
+			if((msg -> data).reject.switcher){
+				//full mode
+				cJSON* num = cJSON_CreateNumber((msg -> data).reject.mapping.full.num);
+				cJSON* slots = cJSON_CreateArray();
+				int i = 0;
+				int len = (msg -> data).reject.mapping.full.num;
+				for(;i < len;i++){
+					cJSON* slot = cJSON_CreateNumber((msg -> data).reject.mapping.full.slots[i]);
+					cJSON_AddItemToArray(slots, slot);
+				}
+				cJSON_AddItemToObject(mapping_reject, "num", num);
+				cJSON_AddItemToObject(mapping_reject, "slots", slots);
+			}else{
+				//light mode
+				cJSON* slot = cJSON_CreateNumber((msg -> data).reject.mapping.light.slot);
+				cJSON_AddItemToObject(mapping_reject, "slot", slot);
+			}
+			cJSON_AddItemToObject(data, "switcher", switcher_reject);
+			cJSON_AddItemToObject(data, "mapping", mapping_reject);
+			break;
+		default:
+			break;
+	}
+	cJSON_AddItemToObject(json_msg, "uuid", uuid);
+	cJSON_AddItemToObject(json_msg, "type", type);
+	cJSON_AddItemToObject(json_msg, "data", data);
+	char* request = cJSON_PrintUnformatted(json_msg);
+	cJSON_Delete(json_msg);
+	return request;
 }
 
 static void deleteMessage(struct Message* msg){
-	// if(msg == NULL)
-	// 	return;
-	// if(msg -> value != NULL){
-	// 	int n = msg -> n;
-	// 	int j = 0;
-	// 	for(;j < n;j++)
-	// 		if((msg -> value)[j].xaddr != NULL)
-	// 			free((msg -> value)[j].xaddr);
-	// 	free(msg -> value);
-	// }
-	// free(msg -> uuid);
-	// free(msg);
-	// msg = NULL;
+	if(msg == NULL)
+		return;
+	if(msg -> uuid)
+		free(msg -> uuid);
+	int type = msg -> type;
+	switch(type){
+		case SYNC:
+			free((msg -> data).sync.begin);
+			free((msg -> data).sync.end);
+			int len = sizeof((msg -> data).sync.messages)/sizeof(struct Message*);
+			int i = 0;
+			for(;i < len;i++)
+				free((msg -> data).sync.messages[i]);
+			free((msg -> data).sync.messages);
+			break;
+		case RECOVER:
+			free((msg -> data).recover.begin);
+			break;
+		case FAIL:
+			free((msg -> data).fail.ip);
+			break;
+		case MOVE:
+			free((msg -> data).move.request);
+			break;
+		case DECLARE:
+			dummy();
+			int switcher_declare = (msg -> data).declare.switcher;
+			if(switcher_declare)
+				//only full mode needs free
+				free((msg -> data).declare.mapping.full.slots);
+			break;
+		case REJECT:
+			dummy();
+			int switcher_reject = (msg -> data).reject.switcher;
+			if(switcher_reject)
+				free((msg -> data).reject.mapping.full.slots);
+			break;
+		default:
+			break;
+	}
+	free(msg);
+	msg = NULL;
 }
 
 static void send_cycle(Cluster* cluster){
@@ -256,6 +353,7 @@ static void send_cycle(Cluster* cluster){
 static void recv_cycle(Cluster* cluster){
 
 }
+static void dummy(){}
 
 void set_boot(){
 	boot = 1;
