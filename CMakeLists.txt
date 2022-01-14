@@ -14,3 +14,6 @@ add_subdirectory(modules)
 
 install(FILES README.txt version.txt manual.pdf DESTINATION onvif/share)
 install(FILES include/onvif.h DESTINATION onvif/include)
+
+enable_testing()
+add_subdirectory(test)

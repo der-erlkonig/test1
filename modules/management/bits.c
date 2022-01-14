@@ -15,11 +15,15 @@
 			   arr + 4, arr + 5, arr + 6, arr + 7, \
 			   arr + 8, arr + 9)
 
+#define setuuid(str, arr) \
+		sprintf(str, "%u-%u-%u-%u-%u-%u-%u-%u-%u-%u", \
+			   arr[0], arr[1], arr[2], arr[3], \
+			   arr[4], arr[5], arr[6], arr[7], \
+			   arr[8], arr[9])
+
+#define INIT "0-0-0-0-0-0-0-0-0-0"
+
 int uuidcmp(char* u1, char* u2){
-	int len1 = strlen(u1);
-	int len2 = strlen(u2);
-	if(len1 != 89 || len2 != 89)
-		return UUID_LEN_ERROR;
 	unsigned int uuid1[10];
 	unsigned int uuid2[10];
 	int n1 = getuuid(u1, uuid1);
@@ -46,4 +50,27 @@ uint64_t hash(char* str){
 	for(i = 0;i < len; i++)
 		value = value * 31 + str[i];
 	return value;
+}
+
+void uuidinc(char* uuid){
+	unsigned int arr[10];
+	int n = getuuid(uuid, arr);
+	if(n != 10) return;
+	int i = 9;
+	int flag = 1;
+	for(;flag && i >= 0;i--){
+		if(arr[i] == 9999)
+			//cannot resolve increasement
+			arr[i] = 0;
+		else{
+			//resolve it, and stop passing
+			arr[i] += 1;
+			flag = 0;
+		}
+	}
+	setuuid(uuid, arr);
+}
+
+char* uuidinit(){
+	return INIT;
 }

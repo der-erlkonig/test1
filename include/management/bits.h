@@ -11,7 +11,7 @@
 #define UUID_BELOW -1 /*!< uuid correct, and uuid1 is lower than uuid2 */
 #define UUID_EQUAL 0 /*!< uuid correct, and uuid1 is equal to uuid2 */
 #define UUID_GREATER 1 /*!< uuid correct, and uuid1 is greater than uuid2 */
-#define UUID_LEN_ERROR 2 /*!< uuid wrong, caused by incorrect length */
+#define UUID_LEN_ERROR 2 /*!< uuid wrong, caused by incorrect length, not used */
 #define UUID_FORMAT_ERROR 3 /*!< uuid wrong, caused by incorrect format such as wrong or misplaced delimiter, not decimal-compatible number(hexcimal, etc.), and so on*/
 
 /**
@@ -29,3 +29,15 @@ int uuidcmp(char* u1, char* u2);
  * @retval     uint64_t hash value
  */
 uint64_t hash(char* str);
+
+/**
+ * @brief      increase uuid by one.
+ * @param[out] uuid  The uuid
+ */
+void uuidinc(char* uuid);
+
+/**
+ * @brief      always return initial uuid
+ * @return     initial uuid
+ */
+char* uuidinit();

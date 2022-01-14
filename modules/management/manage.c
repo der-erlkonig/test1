@@ -10,6 +10,7 @@
 #include "bits.h"
 #include "network.h"
 #include "cJSON.h"
+#include "procedure.h"
 #include <string.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -95,21 +96,22 @@ struct Message{
 };
 
 typedef struct Host{
-	pthread_t send;/*!< sending thread */
-	pthread_t recv;/*!< receiving thread */
     int cluster_size;/*!< cluster size */
 	int capacity;/*!< maximum of threads which host can be held */
 	uint64_t* thread_mapping;/*!< mapping between cameras' addresses and host's thread */
-	int running_threads;/*!< current running thread */
+	struct Message** messages;/*!< persistent messages */
+	int idle;/*!< whether it is idle node */
 } Cluster;
 
 static int boot = 0;
+static pthread_t send;/*!< sending thread */
+static pthread_t recv;/*!< receiving thread */
 
-static struct Message* parseMessage(char*);
-static char* dumpMessage(struct Message*);
-static void deleteMessage(struct Message*);
-static void send_cycle(Cluster*);
-static void recv_cycle(Cluster*);
+static struct Message* parseMessage(char* response);
+static char* dumpMessage(struct Message* msg);
+static void deleteMessage(struct Message* msg);
+static void* send_cycle(void* ptr);
+static void* recv_cycle(void* ptr);
 static void dummy(void);
 
 static struct Message* parseMessage(char* response){
@@ -121,7 +123,6 @@ static struct Message* parseMessage(char* response){
 	msg -> type = type;
 	cJSON* data = cJSON_GetObjectItem(json_response, "data");
 	switch(type){
-		//TODO: switcher
 		case SYNC:
 			(msg -> data).sync.begin = (char*)malloc(STR_MAX);
 			(msg -> data).sync.end = (char*)malloc(STR_MAX);
@@ -347,11 +348,13 @@ static void deleteMessage(struct Message* msg){
 	msg = NULL;
 }
 
-static void send_cycle(Cluster* cluster){
-
+static void* send_cycle(void* ptr){
+	Cluster* cluster = (Cluster*)ptr;
+	
 }
-static void recv_cycle(Cluster* cluster){
-
+static void* recv_cycle(void* ptr){
+	Cluster* cluster = (Cluster*)ptr;
+	
 }
 static void dummy(){}
 
