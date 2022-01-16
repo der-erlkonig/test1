@@ -1,4 +1,10 @@
-
+/**
+ * @file include/management/procedure.h
+ * @brief      This file implements procedure.
+ * @version    0.0.2
+ * @author     Ji Xiangyu
+ * @date       2022.1.15
+ */
 /**
  * @struct     Host_env
  * @brief      current environment of the camera

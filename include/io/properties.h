@@ -12,3 +12,4 @@ typedef struct Properties Properties;
 Properties* readFromFile(char* path);
 char* getConf(Properties* properties, char* key);
 char** getKeys(Properties* properties);
+void deleteProperties(Properties * properties);

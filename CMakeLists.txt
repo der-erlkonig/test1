@@ -8,11 +8,9 @@ if(SOAP_TIMEOUT)
 	add_definitions("-DSOAP_TIMEOUT=${SOAP_TIMEOUT}")
 endif()
 
-execute_process(COMMAND sh manual.sh)
-
 add_subdirectory(modules)
 
-install(FILES README.txt version.txt manual.pdf DESTINATION onvif/share)
+install(FILES README.txt version.txt DESTINATION onvif/share)
 install(FILES include/onvif.h DESTINATION onvif/include)
 
 enable_testing()

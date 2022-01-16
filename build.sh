@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+./manual.sh
 mkdir build
 cmake -B build "$@"
 cmake --build build
