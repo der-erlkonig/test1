@@ -3,6 +3,9 @@ project(onvif_client VERSION 0.0.2)
 
 add_definitions("-DWITH_OPENSSL -DWITH_DOM")
 set(CMAKE_BUILD_TYPE "Release")
+if(WITH_DEBUG)
+	add_compile_options("-g -ggdb")
+endif()
 
 if(SOAP_TIMEOUT)
 	add_definitions("-DSOAP_TIMEOUT=${SOAP_TIMEOUT}")

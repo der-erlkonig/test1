@@ -11,7 +11,7 @@ struct Properties{
 	int size;
 };
 
-Properties* readFromFile(char* path){
+Properties* readPropertiesFromFile(char* path){
 	FILE* file = fopen(path, "r");
 	if(file == NULL)
 		return NULL;
@@ -55,13 +55,35 @@ Properties* readFromFile(char* path){
 	return properties;
 }
 
-char* getConf(Properties* properties, char* key){
+char* getPropertiesConf(Properties* properties, char* key){
+	if(properties == NULL || key == NULL)
+		return NULL;
+	int size = properties -> size;
+	int i = 0;
+	for(;i < size;i++){
+		if(strcmp((properties -> keys)[i], key) == 0){
+			char* value = (char*)malloc(strlen((properties -> values)[i]) + 1);
+			strcpy(value, (properties -> values)[i]);
+			return value;
+		}
+	}
 	return NULL;
 }
 
-char** getKeys(Properties* properties){
-	return NULL;
-}
+char** getPropertiesKeys(Properties* properties){
+	if(properties == NULL)
+		return NULL;
+	int size = properties -> size;
+	if(size == 0)
+		return NULL;
+	char** keys = (char**)malloc(size * sizeof(char*));
+	int i = 0;
+	for(;i < size;i++){
+		keys[i] = (char*)malloc(strlen((properties -> keys)[i]) + 1);
+		strcpy(keys[i], (properties -> keys)[i]);
+	}
+	return keys;
+}	
 
 void deleteProperties(Properties * properties){
 	if(properties == NULL)

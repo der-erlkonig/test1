@@ -7,9 +7,40 @@
  */
 #pragma once
 
+/**
+ * @typedef Properties
+ * @struct  Properties
+ * @brief   Properties entity
+ */
 typedef struct Properties Properties;
 
-Properties* readFromFile(char* path);
-char* getConf(Properties* properties, char* key);
-char** getKeys(Properties* properties);
+/**
+ * @brief      Reads a properties configuration from file.
+ * @param[in]  path  The file path
+ * @return     Properties instance, which is the image of the actual file.
+ * @par        Notice
+ *             Note that there is not a manager embedded, so each call of reading will create a new Properties instance.
+ *             And considering that configuration files only needs to be loaded once, the effciency is not tested specifically.
+ * @par        Memory Management
+ *             Caller is responsible for memory management.
+ *             Please release the memory incase of leak.
+ */
+Properties* readPropertiesFromFile(char* path);
+/**
+ * @brief      Gets the properties config entry.
+ * @param[in]  properties  The properties
+ * @param[in]  key         The key
+ * @return     The properties config entry.
+ */
+char* getPropertiesConf(Properties* properties, char* key);
+/**
+ * @brief      Gets the properties keys.
+ * @param[in]  properties  The properties
+ * @return     The properties keys array.
+ */
+char** getPropertiesKeys(Properties* properties);
+/**
+ * @brief      delete properties
+ * @param[in]  properties  The properties
+ */
 void deleteProperties(Properties * properties);
