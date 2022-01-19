@@ -36,9 +36,10 @@ char* getPropertiesConf(Properties* properties, char* key);
 /**
  * @brief      Gets the properties keys.
  * @param[in]  properties  The properties
- * @return     The properties keys array.
+ * @param[out] keys        The properties keys array.
+ * @return     number of keys
  */
-char** getPropertiesKeys(Properties* properties);
+int getPropertiesKeys(Properties* properties, char** keys);
 /**
  * @brief      delete properties
  * @param[in]  properties  The properties

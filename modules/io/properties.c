@@ -70,19 +70,16 @@ char* getPropertiesConf(Properties* properties, char* key){
 	return NULL;
 }
 
-char** getPropertiesKeys(Properties* properties){
+int getPropertiesKeys(Properties* properties, char** keys){
 	if(properties == NULL)
-		return NULL;
+		return 0;
 	int size = properties -> size;
 	if(size == 0)
-		return NULL;
-	char** keys = (char**)malloc(size * sizeof(char*));
+		return 0;
 	int i = 0;
-	for(;i < size;i++){
-		keys[i] = (char*)malloc(strlen((properties -> keys)[i]) + 1);
+	for(;i < size;i++)
 		strcpy(keys[i], (properties -> keys)[i]);
-	}
-	return keys;
+	return size;
 }	
 
 void deleteProperties(Properties * properties){

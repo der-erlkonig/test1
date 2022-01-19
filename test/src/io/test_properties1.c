@@ -9,16 +9,17 @@ int main(){
 	Log("properties test 1: basic test");
 	Properties* properties = readPropertiesFromFile("./../../../../test/static/io/t1.properties");
 	assert(properties != NULL);
-	char** keys = getPropertiesKeys(properties);
-	assert(keys != NULL);
-	int len = sizeof(keys)/sizeof(char*);
-	assert(len == 4);
+	char** keys = (char**)malloc(10*sizeof(char*));
 	int i = 0;
-	for(;i < 4;i++)
+	for(;i < 10;i++)
+		keys[i] = (char*)malloc(100);
+	int len = getPropertiesKeys(properties, keys);
+	assert(len == 4);
+	for(i = 0;i < 10;i++)
 		free(keys[i]);
 	free(keys);
-	char** emptykeys = getPropertiesKeys(properties);
-	assert(emptykeys == NULL);
+	int emptykeys = getPropertiesKeys(NULL, NULL);
+	assert(emptykeys == 0);
 	char* empty = getPropertiesConf(properties, "key5");
 	assert(empty == NULL);
 	char* nptr = getPropertiesConf(properties, NULL);

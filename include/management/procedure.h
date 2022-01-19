@@ -5,12 +5,37 @@
  * @author     Ji Xiangyu
  * @date       2022.1.15
  */
+
+/**
+ * @enum    Mode
+ * @brief   Camera travel mode
+ */
+enum{
+    ABSOLUTE=0, /*!< absolute move */
+    CONTINUOUS  /*!< continuous move */
+};
+
+/**
+ * @brief      camera ptz status
+ */
+struct PTZ_State{
+    char* xaddr;/*!< the media service address, used as the unique identifier */
+    float pan;/*!< (target/current) pan degree */
+    float tilt;/*!< (target/current) tilt degree */
+    float zoom;/*!< (target/current) zoom degree */
+    int switcher;/*!< whether the camera runs in absolute or continuous mode */
+    int running;/*!< whether the camera is targeting or stand at the given state. Always false if using absolute move*/
+};
+
 /**
  * @struct     Host_env
  * @brief      current environment of the camera
  */
 struct Host_env{
-    
+    int ptz_support;/*!< whether camera support ptz control */
+    struct PTZ_State* status; /*!< camera ptz status, NULL if not supported */
+    char* imgpath;/*!< local path of snapshot */
+    char* stream;/*!< ipc stream uri */
 };
 
 /**
@@ -38,3 +63,4 @@ enum{
     POST_TURN, /*!< when a camera has finished a single scan turn */
     END        /*!< when the whole scan pattern has been completed */
 };
+

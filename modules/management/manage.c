@@ -36,14 +36,6 @@ enum{
 	STOP
 };
 
-struct PTZ_State{
-	char* xaddr;/*!< the media service address, used as the unique identifier */
-	float pan;/*!< (target/current) pan degree */
-	float tilt;/*!< (target/current) tilt degree */
-	float zoom;/*!< (target/current) zoom degree */
-	int running;/*!< whether the camera is targeting or stand at the given state. */
-};
-
 struct Message{
 	char* uuid;
 	int type;
