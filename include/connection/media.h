@@ -44,3 +44,25 @@ void getStreamUri(char* xaddrs, char* token, char* username, char* passwd, char*
  * @param[in] path     The path to store image
  */
 void getSnapshot(char* xaddrs, char* username, char* passwd, char* path);
+
+
+typedef struct{
+    int valid;
+    /** Optional element 'tt:Analytics' of XML schema type 'tt:AnalyticsCapabilities' */
+    struct tt__AnalyticsCapabilities *Analytics;            
+    /** Optional element 'tt:Device' of XML schema type 'tt:DeviceCapabilities' */
+    struct tt__DeviceCapabilities *Device;
+    /** Optional element 'tt:Events' of XML schema type 'tt:EventCapabilities' */
+    struct tt__EventCapabilities *Events;
+    /** Optional element 'tt:Imaging' of XML schema type 'tt:ImagingCapabilities' */
+    struct tt__ImagingCapabilities *Imaging;
+    /** Optional element 'tt:Media' of XML schema type 'tt:MediaCapabilities' */
+    struct tt__MediaCapabilities *Media;
+    /** Optional element 'tt:PTZ' of XML schema type 'tt:PTZCapabilities' */
+    struct tt__PTZCapabilities *PTZ;
+    /** Optional element 'tt:Extension' of XML schema type 'tt:CapabilitiesExtension' */
+    struct tt__CapabilitiesExtension *Extension;
+} capabilities_model;
+
+
+void get_capabilities(char*, capabilities_model*, char*, char* );

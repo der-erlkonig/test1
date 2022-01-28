@@ -101,3 +101,70 @@ void getSnapshot(char* xaddrs, char* username, char* passwd, char* path){
 	system("\n");
 	return;
 }
+
+void get_capabilities(char* xaddr, capabilities_model* cap, char* username, char* passwd){
+    if(xaddr==NULL || cap==NULL)
+        return;
+
+    struct soap* soap = new_soap(SOAP_TIMEOUT);
+
+    if(soap ==NULL){
+        cap -> valid =0;
+        return;
+    }
+
+    set_auth(soap, username, passwd);
+
+    struct _tds__GetCapabilities request;
+	struct _tds__GetCapabilitiesResponse response;
+    memset(&request, 0, sizeof(request));
+	memset(&response, 0, sizeof(response));
+
+    int result = soap_call___tds__GetCapabilities(soap, xaddr, NULL, &request, &response);
+    if(result == SOAP_OK){
+        if(response.Capabilities->Analytics)
+            cap->Analytics = response.Capabilities->Analytics;
+        else
+            cap->Analytics = NULL;
+
+
+        if(response.Capabilities->Device)
+            cap->Device = response.Capabilities->Device;
+        else
+            cap->Device = NULL;
+
+
+        if(response.Capabilities->Events)
+            cap->Events = response.Capabilities->Events;
+        else
+            cap->Events = NULL;
+
+
+        if(response.Capabilities->Imaging)
+            cap->Imaging = response.Capabilities->Imaging;
+        else
+            cap->Imaging = NULL;
+
+
+        if(response.Capabilities->Media)
+            cap->Media = response.Capabilities->Media;
+        else
+            cap->Media = NULL;
+
+
+        if(response.Capabilities->PTZ)
+            cap->PTZ = response.Capabilities->PTZ;
+        else
+            cap->PTZ = NULL;
+
+
+        if(response.Capabilities->Extension)
+            cap->Extension = response.Capabilities->Extension;
+        else
+            cap->Extension = NULL;    
+    }else{
+        cap->valid = 0;
+        return;
+    }
+    free_soap(soap);
+}
