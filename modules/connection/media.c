@@ -1,7 +1,7 @@
 /**
  * @file modules/connection/media.c
  * @brief      implementation of media-related methods.
- * @version    0.0.1-dev
+ * @version    0.0.1-dev  0.0.2.1-dev
  * @author     Ji Xiangyu
  * @date       2021.9.14
  */
@@ -102,8 +102,8 @@ void getSnapshot(char* xaddrs, char* username, char* passwd, char* path){
 	return;
 }
 
-void get_capabilities(char* xaddr, capabilities_model* cap, char* username, char* passwd){
-    if(xaddr==NULL || cap==NULL)
+void get_capabilities(char* xaddrs, capabilities_model* cap, char* username, char* passwd){
+    if(xaddrs==NULL || cap==NULL)
         return;
 
     struct soap* soap = new_soap(SOAP_TIMEOUT);
@@ -120,7 +120,7 @@ void get_capabilities(char* xaddr, capabilities_model* cap, char* username, char
     memset(&request, 0, sizeof(request));
 	memset(&response, 0, sizeof(response));
 
-    int result = soap_call___tds__GetCapabilities(soap, xaddr, NULL, &request, &response);
+    int result = soap_call___tds__GetCapabilities(soap, xaddrs, NULL, &request, &response);
     if(result == SOAP_OK){
         if(response.Capabilities->Analytics)
             cap->Analytics = response.Capabilities->Analytics;

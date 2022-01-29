@@ -45,7 +45,13 @@ void getStreamUri(char* xaddrs, char* token, char* username, char* passwd, char*
  */
 void getSnapshot(char* xaddrs, char* username, char* passwd, char* path);
 
-
+/**
+ * @brief     Gets the capabilities.
+ * @param[in] xaddrs   The media service address
+ * @param[in] username The username
+ * @param[in] passwd   The password
+ * @param[out] cap     The information of capabilities
+ */
 typedef struct{
     int valid;
     /** Optional element 'tt:Analytics' of XML schema type 'tt:AnalyticsCapabilities' */
@@ -65,4 +71,4 @@ typedef struct{
 } capabilities_model;
 
 
-void get_capabilities(char*, capabilities_model*, char*, char* );
+void get_capabilities(char* xaddrs, capabilities_model* cap, char* username, char* passwd);
