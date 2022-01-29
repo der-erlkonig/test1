@@ -72,3 +72,5 @@ typedef struct{
 
 
 void get_capabilities(char* xaddrs, capabilities_model* cap, char* username, char* passwd);
+
+void get_PTZ(char* xaddrs, char* ptzcap, char* username, char* passwd);

@@ -1,7 +1,7 @@
 /**
  * @file modules/connection/media.c
  * @brief      implementation of media-related methods.
- * @version    0.0.1-dev  0.0.2.1-dev
+ * @version    0.0.1-dev  
  * @author     Ji Xiangyu
  * @date       2021.9.14
  */
@@ -167,4 +167,26 @@ void get_capabilities(char* xaddrs, capabilities_model* cap, char* username, cha
         return;
     }
     free_soap(soap);
+}
+
+void get_PTZ(char* xaddrs, char* ptzcap, char* username, char* passwd){
+	if(xaddrs==NULL)
+        return;
+    struct soap* soap = new_soap(SOAP_TIMEOUT);
+	set_auth(soap, username, passwd);
+
+    struct _tds__GetCapabilities request;
+	struct _tds__GetCapabilitiesResponse response;
+    memset(&request, 0, sizeof(request));
+	memset(&response, 0, sizeof(response));
+
+    int result = soap_call___tds__GetCapabilities(soap, xaddrs, NULL, &request, &response);
+    if(result == SOAP_OK){
+		if(response.Capabilities -> PTZ -> XAddr)
+			strcpy(ptzcap, response.Capabilities -> PTZ -> XAddr);
+		else
+			strcpy(ptzcap, "");
+	}
+	free_soap(soap);
+
 }
