@@ -199,7 +199,7 @@ void get_capabilities(char* xaddrs, capabilities_model* cap, char* username, cha
 
         if(response.Capabilities->Imaging){
 			strcpy( cap->Imaging -> XAddr,  response.Capabilities->Imaging -> XAddr);
-			
+
 		}
         else
             cap->Imaging = NULL;
@@ -268,7 +268,7 @@ void get_capabilities(char* xaddrs, capabilities_model* cap, char* username, cha
     free_soap(soap);
 }
 
-void get_PTZ(char* xaddrs, char* ptzcap, char* username, char* passwd){
+void get_PTZ(char* xaddrs, char* ptzcap, char* username, char* passwd, int* result){
 	if(xaddrs==NULL)
         return;
     struct soap* soap = new_soap(SOAP_TIMEOUT);
@@ -281,10 +281,14 @@ void get_PTZ(char* xaddrs, char* ptzcap, char* username, char* passwd){
 
     int result = soap_call___tds__GetCapabilities(soap, xaddrs, NULL, &request, &response);
     if(result == SOAP_OK){
-		if(response.Capabilities -> PTZ -> XAddr)
+		if(response.Capabilities -> PTZ -> XAddr){
 			strcpy(ptzcap, response.Capabilities -> PTZ -> XAddr);
-		else
+			*result = 1;
+		}
+		else{
 			strcpy(ptzcap, "");
+			*result = 0;
+		}
 	}
 	free_soap(soap);
 
