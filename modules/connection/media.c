@@ -199,6 +199,7 @@ void get_capabilities(char* xaddrs, capabilities_model* cap, char* username, cha
 
         if(response.Capabilities->Imaging){
 			strcpy( cap->Imaging -> XAddr,  response.Capabilities->Imaging -> XAddr);
+			
 		}
         else
             cap->Imaging = NULL;
